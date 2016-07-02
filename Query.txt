@@ -1,0 +1,33 @@
+create new courier
+INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('aa', 'aa', 'aa', '111-1111111', '3');
+INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('bb', 'bb', 'bb', '222-2222222', '4');
+INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('cc', 'cc', 'cc', '333-3333333', '5');
+INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('dd', 'dd', 'dd', '444-4444444', '6');
+INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('ee', 'ee', 'ee', '555-5555555', '7');
+
+update existing courier
+UPDATE `courier` SET `FName` = 'rr', `Lname` = 'rr', `Address` = 'rr', `Phone` = '888-8888888', `DrivingExperience` = '9' WHERE `courier`.`CourierID` = 22;
+
+create new customer
+INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('ee', 'ee', 'eec', '222-2222222', '4');
+INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('dd', 'dd', 'ddc', '888-9999999', '6');
+INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('rr', 'rr', 'rrc', '777-7777777', '5');
+INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('tt', 'tt', 'ttc', '555-5555555', '8');
+
+update existing customer
+UPDATE `customers` SET `FName` = 'yy', `Lname` = 'yy', `Address` = 'yy', `Phone` = '666-6666666', `numberOfDelivery` = '4' WHERE `customers`.`CustomerID` = 1
+
+create new order delivery
+INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2016-07-12', 'ss', 'ss', '1', '21', '0');
+INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2015-07-12', 'qq', 'qq', '2', '22', '1');
+INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2015-07-12', 'ww', 'ww', '3', '23', '1');
+INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2014-07-12', 'ee', 'ee', '4', '24', '1');
+INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2013-07-12', 'rr', 'rr', '5', '25', '1');
+
+insert new delivery status
+INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('1', '2016-07-12', '07:00:00', '00:17:00', '05:08:05', '21', '0');
+INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('2', '2015-06-12', '07:34:00', '12:17:00', '04:08:05', '22', '1');
+INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('3', '2014-05-12', '07:56:00', '02:17:00', '06:08:05', '23', '1');
+INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('4', '2017-02-12', '07:12:00', '09:17:00', '07:08:05', '24', '1');
+
+
