@@ -1,3 +1,26 @@
+User
+create new user
+INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('sss', 'sss', 'sss', 'sss', 'sss', '111-1111111', '1')
+INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('aaa', 'aaa', 'aaa', 'aaa', 'aaa', '222-2222222', '2')
+INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('ddd', 'ddd', 'ddd', 'ddd', 'ddd', '444-4444444', '1')
+INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('ffff', 'ffff', 'ffff', 'ffff', 'ffff', '555-5555555', '0')
+INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('ggg', 'ggg', 'ggg', 'ggg', 'ggg', '333-3333333', '0')
+
+
+
+display users by name
+SELECT * FROM `users` WHERE FName= 'sss'
+
+display user by shift
+SELECT * FROM `users` ORDER by Role
+
+
+update existing user role
+UPDATE users set role='1' where users.UserName='aaa'
+
+
+*********************
+courier
 create new courier
 INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('aa', 'aa', 'aa', '111-1111111', '3');
 INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('bb', 'bb', 'bb', '222-2222222', '4');
@@ -8,6 +31,54 @@ INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`
 update existing courier
 UPDATE `courier` SET `FName` = 'rr', `Lname` = 'rr', `Address` = 'rr', `Phone` = '888-8888888', `DrivingExperience` = '9' WHERE `courier`.`CourierID` = 22;
 
+Display statistic on courier with scooter
+SELECT * FROM courier INNER JOIN scotterassign INNER JOIN delivery ON courier.CourierID=scotterassign.CourierID and courier.CourierID=delivery.CourierID and courier.CourierID=21
+
+********************
+scooter
+Display statistic on specific scooter
+SELECT * FROM scooters INNER JOIN scooterassign on scooters.ScooterLicense=scooterassign.ScooterLicense and scooters.ScooterLicense=1111111
+
+
+insert new scooter
+INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('1111111', 'ss', '1989', '10000', '4585');
+INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('2222222', 'ss', '1586', '20000', '4562');
+INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('9999999', 'dd', '1978', '40000', '352');
+INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('8888888', 'ff', '1980', '50000', '5433');
+INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('4444444', 'gg', '1990', '20000', '5622');
+
+Assign scooter to courier
+INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('1111111', '2016-07-05', '2', '21', '1');
+INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('2222222', '2016-08-03', '0', '22', '0');
+INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('9999999', '2016-10-04', '1', '23', '1');
+INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('4444444', '2016-11-02', '0', '24', '0');
+****************************************
+
+delivery
+
+create new order delivery
+INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2016-07-12', 'ss', 'ss', '1', '21', '0');
+INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2014-06-12', 'yy', 'yy', '2', '25', '1');
+INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2015-07-12', 'ww', 'ww', '3', '21', '1');
+INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2014-07-12', 'ee', 'ee', '4', '24', '1');
+INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2013-07-12', 'rr', 'rr', '5', '25', '1');
+
+Update assign time
+UPDATE `delivery` SET `AssignTime` = '04:20:00' WHERE `delivery`.`DeliveryID` = 1
+
+
+update pickup time
+UPDATE `delivery` SET `PickupTime` = '10:29:00' WHERE `delivery`.`DeliveryID` = 2;
+
+update dropdown time
+UPDATE `delivery` SET `DropDownTime` = '17:30:29' WHERE `delivery`.`DeliveryID` = 3;
+
+Display statistic on specific delivery
+SELECT * FROM delivery WHERE delivery.DeliveryID=1
+*******************
+
+customer
+
 create new customer
 INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('ee', 'ee', 'eec', '222-2222222', '4');
 INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('dd', 'dd', 'ddc', '888-9999999', '6');
@@ -17,17 +88,17 @@ INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery
 update existing customer
 UPDATE `customers` SET `FName` = 'yy', `Lname` = 'yy', `Address` = 'yy', `Phone` = '666-6666666', `numberOfDelivery` = '4' WHERE `customers`.`CustomerID` = 1
 
-create new order delivery
-INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2016-07-12', 'ss', 'ss', '1', '21', '0');
-INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2015-07-12', 'qq', 'qq', '2', '22', '1');
-INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2015-07-12', 'ww', 'ww', '3', '23', '1');
-INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2014-07-12', 'ee', 'ee', '4', '24', '1');
-INSERT INTO `delivery’sorder` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2013-07-12', 'rr', 'rr', '5', '25', '1');
-
-insert new delivery status
-INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('1', '2016-07-12', '07:00:00', '00:17:00', '05:08:05', '21', '0');
-INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('2', '2015-06-12', '07:34:00', '12:17:00', '04:08:05', '22', '1');
-INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('3', '2014-05-12', '07:56:00', '02:17:00', '06:08:05', '23', '1');
-INSERT INTO `deliverystatus` (`DeliveryID`, `Date`, `AssignTime`, `PickupTime`, `DropDownTime`, `CourierID`, `IsCancel`) VALUES ('4', '2017-02-12', '07:12:00', '09:17:00', '07:08:05', '24', '1');
 
 
+Display all customer delivery
+SELECT * from customers INNER JOIN delivery on customers.CustomerID=delivery.CustomerID and customers.CustomerID = 1
+
+
+
+
+
+CREATE TRIGGER UpdateDelivery AFTER UPDATE ON 'delivery'
+UPDATE customers c 
+SET numberOfDelivery=c.numberOfDelivery +1 
+FROM delivery d
+WHERE c.CustomerID=d.CustomerID
