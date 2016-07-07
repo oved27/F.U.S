@@ -1,0 +1,39 @@
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS 	CourierAndScooterByID$$
+CREATE PROCEDURE CourierAndScooterByID
+(IN new_CourierID	int)
+BEGIN
+    SELECT * FROM courier INNER JOIN scooterassign INNER JOIN delivery ON courier.CourierID=scooterassign.CourierID and 
+	courier.CourierID=delivery.CourierID and courier.CourierID=new_CourierID;
+END $$
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS Update_User_password$$
+CREATE PROCEDURE Update_User_password
+(IN new_User	varchar(255),
+IN new_password 	varchar(255))
+BEGIN
+    UPDATE users set password=new_password where users.UserName=new_User;
+END $$
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS Update_User_Address$$
+CREATE PROCEDURE Update_User_Address
+(IN new_User	varchar(255),
+IN new_Address 	varchar(255))
+BEGIN
+    UPDATE users set Address=new_Address where users.UserName=new_User;
+END $$
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS Update_Courier_DrivingExperience$$
+CREATE PROCEDURE Update_Courier_DrivingExperience
+(IN new_Courier	varchar(255),
+IN new_DrivingExperience 	int)
+BEGIN
+    UPDATE courier set DrivingExperience=new_DrivingExperience where courier.Fname=new_Courier;
+END $$

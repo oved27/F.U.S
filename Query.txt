@@ -1,42 +1,55 @@
 User
 create new user
-INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('sss', 'sss', 'sss', 'sss', 'sss', '111-1111111', '1')
-INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('aaa', 'aaa', 'aaa', 'aaa', 'aaa', '222-2222222', '2')
-INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('ddd', 'ddd', 'ddd', 'ddd', 'ddd', '444-4444444', '1')
-INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('ffff', 'ffff', 'ffff', 'ffff', 'ffff', '555-5555555', '0')
-INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES ('ggg', 'ggg', 'ggg', 'ggg', 'ggg', '333-3333333', '0')
-
-
+call Create_New_user('mmm', 'mmm', 'mmm', 'mmm', 'mmm', '222-2222222', '0')
 
 display users by name
-SELECT * FROM `users` WHERE FName= 'sss'
+call displaySpecificUser('mmm')
 
-display user by shift
-SELECT * FROM `users` ORDER by Role
-
+display user by role
+call display_user_by_role()
 
 update existing user role
-UPDATE users set role='1' where users.UserName='aaa'
+call Update_User_Role('aaa',2)
+
+update existing user password
+call Update_User_password('aaa','123456')
+
+update existing user Address
+call Update_User_Address('aaa','ggg')
+
+update existing user Update_User_Phone
+call Update_User_Phone('aaa','963-8527415')
+
 
 
 *********************
 courier
 create new courier
-INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('aa', 'aa', 'aa', '111-1111111', '3');
-INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('bb', 'bb', 'bb', '222-2222222', '4');
-INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('cc', 'cc', 'cc', '333-3333333', '5');
-INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('dd', 'dd', 'dd', '444-4444444', '6');
-INSERT INTO `courier` (`FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES ('ee', 'ee', 'ee', '555-5555555', '7');
+call create_New_Courier('jj', 'jj', 'jj', '666-5566778', '6')
 
-update existing courier
-UPDATE `courier` SET `FName` = 'rr', `Lname` = 'rr', `Address` = 'rr', `Phone` = '888-8888888', `DrivingExperience` = '9' WHERE `courier`.`CourierID` = 22;
+update existing courier phone
+call Update_Courier_Phone('aa','555-8889997')
+
+update existing courier Address
+call Update_Courier_Address('aa','frvf')
+
+update existing courier DrivingExperience
+call Update_Courier_DrivingExperience('aa',5)
+DrivingExperience
+
+display specific courier
+call DisplaySpecificCourier('ee')
+
+dispaly courier greatest then 5
+call DisplayDrivingExperience(5)
 
 Display statistic on courier with scooter
-SELECT * FROM courier INNER JOIN scotterassign INNER JOIN delivery ON courier.CourierID=scotterassign.CourierID and courier.CourierID=delivery.CourierID and courier.CourierID=21
+call CourierAndScooterByID(22)
 
 ********************
 scooter
 Display statistic on specific scooter
+
 SELECT * FROM scooters INNER JOIN scooterassign on scooters.ScooterLicense=scooterassign.ScooterLicense and scooters.ScooterLicense=1111111
 
 

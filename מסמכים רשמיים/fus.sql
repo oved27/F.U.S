@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2016 at 09:40 PM
+-- Generation Time: Jul 07, 2016 at 11:14 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -24,7 +24,12 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertCourier` (IN `new_FName` VARCHAR(255), IN `new_Lname` VARCHAR(255), IN `new_Address` VARCHAR(255), IN `new_Phone` VARCHAR(11), IN `new_DrivingExperience` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CourierAndScooterByID` (IN `new_CourierID` INT)  BEGIN
+    SELECT * FROM courier INNER JOIN scooterassign INNER JOIN delivery ON courier.CourierID=scooterassign.CourierID and 
+	courier.CourierID=delivery.CourierID and courier.CourierID=new_CourierID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Courier` (IN `new_FName` VARCHAR(255), IN `new_Lname` VARCHAR(255), IN `new_Address` VARCHAR(255), IN `new_Phone` VARCHAR(11), IN `new_DrivingExperience` INT)  BEGIN
     INSERT INTO courier  (
         		FName		, 
                 Lname		, 
@@ -39,6 +44,75 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertCourier` (IN `new_FName` VARC
         new_Phone	,
         new_DrivingExperience
         );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_user` (IN `new_UserName` VARCHAR(255), IN `new_Password` VARCHAR(255), IN `new_FName` VARCHAR(255), IN `new_Lname` VARCHAR(255), IN `new_Address` VARCHAR(255), IN `new_Phone` VARCHAR(11), IN `new_Role` TINYINT(1))  BEGIN
+    INSERT INTO users  (
+        		UserName 	,
+                Password    ,
+                FName 	    ,
+                Lname 	    ,
+                Address     ,
+				Phone       ,
+				Role
+				)
+	
+	
+    VALUes(
+		new_UserName	,
+        new_Password    ,
+        new_FName 	    ,
+        new_Lname 	    ,
+        new_Address     ,
+        new_Phone       ,
+		new_Role	
+		
+        );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DisplayDrivingExperience` (IN `new_DrivingExperience` INT)  BEGIN
+		SELECT * FROM Courier WHERE 	DrivingExperience>new_DrivingExperience;
+	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DisplaySpecificCourier` (IN `new_Courier` VARCHAR(255))  BEGIN
+    SELECT * FROM Courier WHERE FName= new_Courier;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DisplaySpecificUser` (IN `new_User` VARCHAR(255))  BEGIN
+    SELECT * FROM users WHERE FName= new_User;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_user_by_role` ()  BEGIN
+    SELECT * FROM users ORDER by Role;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Address` (IN `new_Courier` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
+    UPDATE courier set Address=new_Address where courier.Fname=new_Courier;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_DrivingExperience` (IN `new_Courier` VARCHAR(255), IN `new_DrivingExperience` INT)  BEGIN
+    UPDATE courier set DrivingExperience=new_DrivingExperience where courier.Fname=new_Courier;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Phone` (IN `new_Courier` VARCHAR(255), IN `new_Phone` VARCHAR(255))  BEGIN
+    UPDATE courier set Phone=new_Phone where courier.Fname=new_Courier;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_User_Address` (IN `new_User` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
+    UPDATE users set Address=new_Address where users.UserName=new_User;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_User_password` (IN `new_User` VARCHAR(255), IN `new_password` VARCHAR(255))  BEGIN
+    UPDATE users set password=new_password where users.UserName=new_User;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_User_Phone` (IN `new_User` VARCHAR(255), IN `new_Phone` VARCHAR(11))  BEGIN
+    UPDATE users set Phone=new_Phone where users.UserName=new_User;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_User_Role` (IN `new_User` VARCHAR(255), IN `new_role` INT(1))  BEGIN
+    UPDATE users set role=new_role where users.UserName=new_User;
 END$$
 
 DELIMITER ;
@@ -63,13 +137,14 @@ CREATE TABLE `courier` (
 --
 
 INSERT INTO `courier` (`CourierID`, `FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES
-(21, 'aa', 'aa', 'aa', '111-1111111', 3),
+(21, 'aa', 'aa', 'frvf', '555-8889997', 5),
 (22, 'rr', 'rr', 'rr', '888-8888888', 9),
 (23, 'cc', 'cc', 'cc', '333-3333333', 5),
 (24, 'dd', 'dd', 'dd', '444-4444444', 6),
 (25, 'ee', 'ee', 'ee', '555-5555555', 7),
 (26, 'bb', 'bb', 'bb', '222-2222222', 4),
-(27, 'vv', 'vv', 'vv', '666-6666666', 4);
+(27, 'vv', 'vv', 'vv', '666-6666666', 4),
+(28, 'jj', 'jj', 'jj', '666-5566778', 6);
 
 -- --------------------------------------------------------
 
@@ -266,10 +341,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone`, `Role`) VALUES
-('aaa', 'aaa', 'aaa', 'aaa', 'aaa', '222-2222222', 1),
+('aaa', '123456', 'aaa', 'aaa', 'ggg', '963-8527415', 2),
 ('ddd', 'ddd', 'ddd', 'ddd', 'ddd', '444-4444444', 1),
 ('ffff', 'ffff', 'ffff', 'ffff', 'ffff', '555-5555555', 0),
 ('ggg', 'ggg', 'ggg', 'ggg', 'ggg', '333-3333333', 0),
+('mmm', 'mmm', 'mmm', 'mmm', 'mmm', '222-2222222', 0),
 ('sss', 'sss', 'sss', 'sss', 'sss', '111-1111111', 1);
 
 --
@@ -324,7 +400,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courier`
 --
 ALTER TABLE `courier`
-  MODIFY `CourierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `CourierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `customers`
 --

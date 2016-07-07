@@ -1,0 +1,32 @@
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS new_courier$$
+CREATE PROCEDURE new_courier
+(IN new_UserName 	varchar(255), 
+ In new_Password 	varchar(255), 
+ IN new_FName 		varchar(255),
+ IN new_Lname 		varchar(255),
+ IN new_Address 	varchar(255),
+ IN new_Phone       varchar(11),
+ In new_Role		tinyint(1)
+ 
+)
+BEGIN
+    INSERT INTO courier  (
+        		FName		, 
+                Lname		, 
+                Address		, 
+                Phone		,
+                DrivingExperience
+    )
+    VALUES(
+        new_FName	,
+        new_Lname	, 
+        new_Address	,
+        new_Phone	,
+        new_DrivingExperience
+        );
+END $$
+
+
+

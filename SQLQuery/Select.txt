@@ -1,0 +1,22 @@
+	DELIMITER $$
+	use fus$$
+	DROP PROCEDURE IF EXISTS CourierAndScooterByID$$
+	CREATE PROCEDURE DisplayDrivingExperience
+	(IN new_DrivingExperience 	int)
+	BEGIN
+		SELECT * FROM Courier WHERE 	DrivingExperience>new_DrivingExperience;
+	END $$
+
+
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS display_user_by_role$$
+CREATE PROCEDURE display_user_by_role()
+BEGIN
+    SELECT * FROM users ORDER by Role;
+
+END $$
+
+
+
