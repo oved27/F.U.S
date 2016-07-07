@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2016 at 10:12 PM
+-- Generation Time: Jul 07, 2016 at 09:40 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 -- Database: `fus`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertCourier` (IN `new_FName` VARCHAR(255), IN `new_Lname` VARCHAR(255), IN `new_Address` VARCHAR(255), IN `new_Phone` VARCHAR(11), IN `new_DrivingExperience` INT)  BEGIN
+    INSERT INTO courier  (
+        		FName		, 
+                Lname		, 
+                Address		, 
+                Phone		,
+                DrivingExperience
+    )
+    VALUES(
+        new_FName	,
+        new_Lname	, 
+        new_Address	,
+        new_Phone	,
+        new_DrivingExperience
+        );
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -32,7 +55,7 @@ CREATE TABLE `courier` (
   `Lname` varchar(255) NOT NULL,
   `Address` varchar(255) DEFAULT NULL,
   `Phone` varchar(11) NOT NULL,
-  `DrivingExperience` int(11) NOT NULL DEFAULT '3'
+  `DrivingExperience` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
 
 --
@@ -45,7 +68,8 @@ INSERT INTO `courier` (`CourierID`, `FName`, `Lname`, `Address`, `Phone`, `Drivi
 (23, 'cc', 'cc', 'cc', '333-3333333', 5),
 (24, 'dd', 'dd', 'dd', '444-4444444', 6),
 (25, 'ee', 'ee', 'ee', '555-5555555', 7),
-(26, 'bb', 'bb', 'bb', '222-2222222', 4);
+(26, 'bb', 'bb', 'bb', '222-2222222', 4),
+(27, 'vv', 'vv', 'vv', '666-6666666', 4);
 
 -- --------------------------------------------------------
 
@@ -67,14 +91,14 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`CustomerID`, `FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES
-(1, 'yy', 'yy', 'yy', '666-6666666', 13),
-(2, 'cc', 'cc', 'ccc', '111-1111111', 13),
-(3, 'bb', 'bb', 'bb', '888-8888888', 9),
-(4, 'dd', 'dd', 'ddd', '222-2222222', 13),
-(5, 'ee', 'ee', 'eec', '222-2222222', 13),
-(6, 'dd', 'dd', 'ddc', '888-9999999', 10),
-(7, 'rr', 'rr', 'rrc', '777-7777777', 9),
-(8, 'tt', 'tt', 'ttc', '555-5555555', 12);
+(1, 'yy', 'yy', 'yy', '666-6666666', 22),
+(2, 'cc', 'cc', 'ccc', '111-1111111', 22),
+(3, 'bb', 'bb', 'bb', '888-8888888', 17),
+(4, 'dd', 'dd', 'ddd', '222-2222222', 21),
+(5, 'ee', 'ee', 'eec', '222-2222222', 21),
+(6, 'dd', 'dd', 'ddc', '888-9999999', 13),
+(7, 'rr', 'rr', 'rrc', '777-7777777', 12),
+(8, 'tt', 'tt', 'ttc', '555-5555555', 15);
 
 -- --------------------------------------------------------
 
@@ -145,7 +169,32 @@ INSERT INTO `delivery` (`DeliveryID`, `Date`, `PickupAddress`, `DropDownAddress`
 (59, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
 (60, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
 (61, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(62, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0);
+(62, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(65, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(66, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(67, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(69, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(70, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(71, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(72, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(73, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(74, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(75, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(76, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(78, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(79, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(80, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(81, '2014-06-12', 'yy', 'yy', 1, 25, 1, NULL, NULL, NULL, 0);
+
+--
+-- Triggers `delivery`
+--
+DELIMITER $$
+CREATE TRIGGER `UpdateDelivery` AFTER INSERT ON `delivery` FOR EACH ROW UPDATE customers c
+SET numberOfDelivery=c.numberOfDelivery +1
+WHERE new.CustomerID=CustomerID
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -275,7 +324,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courier`
 --
 ALTER TABLE `courier`
-  MODIFY `CourierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `CourierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `customers`
 --
@@ -285,7 +334,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `delivery`
 --
 ALTER TABLE `delivery`
-  MODIFY `DeliveryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `DeliveryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 --
 -- Constraints for dumped tables
 --
