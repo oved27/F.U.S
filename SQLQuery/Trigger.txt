@@ -1,0 +1,8 @@
+
+
+
+CREATE TRIGGER UpdateDelivery AFTER UPDATE ON 'delivery'
+UPDATE customers c 
+SET numberOfDelivery=c.numberOfDelivery +1 
+FROM delivery d
+WHERE c.CustomerID=d.CustomerID

@@ -55,7 +55,8 @@ Call Insert_New_Scooter ('1234567', 'gfd', '1980', '20000', '15789');
 Display statistic on specific scooter
 call Display_Scooter_History('1111111')	
 
-
+Display all scooter deliverys
+call Display_ScooterDelivery('1111111')
 
 Assign scooter to courier
 call Assign_Scooter_To_Courier('1111111', '2014-09-12', '1', '22', '0')
@@ -98,38 +99,40 @@ update dropdown time
 call Update_DropDown_Time(4);
 
 update PickupAddress
+call Update_PickupAddress(1,'wer');
+
 update DropDownAddress
+call Update_DropDownAddress(2,'oiu');
+
 update	CourierID
+Call Update_Courier(5,23);
+
 update	IsActive
+call Update_Status (9,0);
+
 update	IsCancel
+call Update_Cancel(5,1);	
 
 
 Display statistic on specific delivery
-SELECT * FROM delivery WHERE delivery.DeliveryID=1
+call Display_Delivery(1);
 *******************
 
 customer
 
 create new customer
-INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('ee', 'ee', 'eec', '222-2222222', '4');
-INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('dd', 'dd', 'ddc', '888-9999999', '6');
-INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('rr', 'rr', 'rrc', '777-7777777', '5');
-INSERT INTO `customers` (`FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES ('tt', 'tt', 'ttc', '555-5555555', '8');
+call Create_New_Customer('gg', 'gg', 'dgd', '345-3452345');
 
-update existing customer
-UPDATE `customers` SET `FName` = 'yy', `Lname` = 'yy', `Address` = 'yy', `Phone` = '666-6666666', `numberOfDelivery` = '4' WHERE `customers`.`CustomerID` = 1
+UPDATE customer address
+call Update_Customer_Address(2,'oiuy');
+
+
+Update customer phone
+call Update_Customer_Phone(3,'058-7894562');
 
 
 
 Display all customer delivery
-SELECT * from customers INNER JOIN delivery on customers.CustomerID=delivery.CustomerID and customers.CustomerID = 1
+call Display_Customer_Delivery (1)
 
 
-
-
-
-CREATE TRIGGER UpdateDelivery AFTER UPDATE ON 'delivery'
-UPDATE customers c 
-SET numberOfDelivery=c.numberOfDelivery +1 
-FROM delivery d
-WHERE c.CustomerID=d.CustomerID

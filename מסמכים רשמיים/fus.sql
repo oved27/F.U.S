@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2016 at 12:20 PM
+-- Generation Time: Jul 08, 2016 at 05:04 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -63,6 +63,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Courier` (IN `new_FName`
         );
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Customer` (IN `New_FName` VARCHAR(255), IN `New_Lname` VARCHAR(255), IN `New_Address` VARCHAR(255), IN `New_Phone` VARCHAR(255))  BEGIN
+    INSERT INTO Customers  (
+				FName		,
+        		Lname		,
+                Address 	,
+                Phone 	
+    )
+    VALUES(
+		New_FName		,
+        New_Lname		, 
+        New_Address 	,
+        New_Phone 		
+		);
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Delivery` (IN `new_PickupAddress` VARCHAR(255), IN `new_DropDownAddress` VARCHAR(255), IN `new_CustomerID` INT, IN `new_CourierID` INT)  BEGIN
     INSERT INTO Delivery  (
 				Date			,
@@ -119,6 +134,36 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `DisplaySpecificUser` (IN `new_User`
     SELECT * FROM users WHERE FName= new_User;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Customer_Delivery` (IN `new_CustomerID` INT)  BEGIN
+		SELECT * from customers c INNER JOIN delivery  d on c.CustomerID=d.CustomerID and c.CustomerID = new_CustomerID;
+
+	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Delivery` (IN `new_DeliveryID` INT)  BEGIN
+    SELECT * FROM delivery WHERE DeliveryID=new_DeliveryID;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_ScooterDelivery` (IN `new_ScooterLicense` INT)  BEGIN
+		SELECT * FROM scooterassign s INNER join delivery d WHERE s.ScooterLicense = new_ScooterLicense ORDER BY `d`.`DeliveryID` ASC;
+	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Active_Assign` (IN `new_IsActive` INT)  BEGIN
+		SELECT * from scooterassign s where s.IsActive=new_IsActive; 
+	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_CourierID` (IN `new_CourierID` INT)  BEGIN
+		SELECT * from scooterassign s where s.CourierID=new_CourierID; 
+	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_Date` (IN `new_Date` DATETIME)  BEGIN
+		SELECT * from scooterassign s where s.Date>new_Date order by s.Date asc; 
+	END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_Shift` (IN `new_Shift` TINYINT)  BEGIN
+		SELECT * from scooterassign s where s.Shift=new_Shift order by s.CourierID ASC; 
+	END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Scooter_By_KM` (IN `new_CurrentKM` VARCHAR(7))  BEGIN
     SELECT * FROM scooters where CurrentKM>new_CurrentKM;	
 
@@ -170,6 +215,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Assign_Time` (IN `New_Delive
 	update Delivery set Delivery.AssignTime=sysDate() where DeliveryID=New_DeliveryID;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Cancel` (IN `New_DeliveryID` INT, IN `New_IsCancel` TINYINT)  BEGIN
+    UPDATE Delivery set IsCancel=New_IsCancel where DeliveryID=New_DeliveryID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier` (IN `New_DeliveryID` INT, IN `New_CourierID` INT)  BEGIN
+    UPDATE Delivery set CourierID=New_CourierID where DeliveryID=New_DeliveryID;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Address` (IN `new_Courier` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
     UPDATE courier set Address=new_Address where courier.Fname=new_Courier;
 END$$
@@ -182,8 +235,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Phone` (IN `new_Cour
     UPDATE courier set Phone=new_Phone where courier.Fname=new_Courier;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Customer_Address` (IN `New_CustomerID` INT, IN `New_Address` VARCHAR(255))  BEGIN
+	update customers set Address=New_Address where CustomerID=New_CustomerID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Customer_Phone` (IN `New_CustomerID` INT, IN `New_Phone` VARCHAR(255))  BEGIN
+	update customers set Phone=New_Phone where CustomerID=New_CustomerID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_DropDownAddress` (IN `New_DeliveryID` INT, IN `New_DropDownAddress` VARCHAR(255))  BEGIN
+    UPDATE Delivery set DropDownAddress=New_DropDownAddress where DeliveryID=New_DeliveryID;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_DropDown_Time` (IN `New_DeliveryID` INT)  BEGIN
 	update Delivery set Delivery.DropDownTime=sysDate() where DeliveryID=New_DeliveryID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_PickupAddress` (IN `New_DeliveryID` INT, IN `New_PickupAddress` VARCHAR(255))  BEGIN
+    UPDATE Delivery set PickupAddress=New_PickupAddress where DeliveryID=New_DeliveryID;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_PickUp_Time` (IN `New_DeliveryID` INT)  BEGIN
@@ -196,6 +265,10 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Scooter_Nexttretment` (IN `new_ScooterLicense` VARCHAR(7))  BEGIN
     UPDATE Scooters set NextTreatment=NextTreatment+10000 where ScooterLicense=new_ScooterLicense;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Status` (IN `New_DeliveryID` INT, IN `New_IsActive` TINYINT)  BEGIN
+    UPDATE Delivery set IsActive=New_IsActive where DeliveryID=New_DeliveryID;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_User_Address` (IN `new_User` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
@@ -266,13 +339,18 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`CustomerID`, `FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES
 (1, 'yy', 'yy', 'yy', '666-6666666', 24),
-(2, 'cc', 'cc', 'ccc', '111-1111111', 23),
-(3, 'bb', 'bb', 'bb', '888-8888888', 19),
+(2, 'cc', 'cc', 'oiuy', '111-1111111', 23),
+(3, 'bb', 'bb', 'bb', '058-7894562', 19),
 (4, 'dd', 'dd', 'ddd', '222-2222222', 21),
 (5, 'ee', 'ee', 'eec', '222-2222222', 22),
 (6, 'dd', 'dd', 'ddc', '888-9999999', 14),
 (7, 'rr', 'rr', 'rrc', '777-7777777', 12),
-(8, 'tt', 'tt', 'ttc', '555-5555555', 15);
+(8, 'tt', 'tt', 'ttc', '555-5555555', 15),
+(9, 'gg', 'gg', 'dgd', '345-3452345', 0),
+(10, 'gg', 'gg', 'dgd', '345-3452345', 0),
+(11, 'aa', 'aa', 'aa', '345-3452345', 0),
+(12, 'aa', 'aa', 'aa', '111-1111111', 0),
+(13, 'aa', 'aa', 'aa', '111-1111111', 0);
 
 -- --------------------------------------------------------
 
@@ -299,15 +377,15 @@ CREATE TABLE `delivery` (
 --
 
 INSERT INTO `delivery` (`DeliveryID`, `Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`, `AssignTime`, `PickupTime`, `DropDownTime`, `IsCancel`) VALUES
-(1, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, '2016-07-08 04:20:00', NULL, NULL, 0),
-(2, '2015-07-12 00:00:00', 'qq', 'qq', 2, 22, 1, '2016-07-08 13:11:22', '2016-07-08 10:29:00', NULL, 0),
+(1, '2016-07-12 00:00:00', 'wer', 'ss', 1, 21, 0, '2016-07-08 04:20:00', NULL, NULL, 0),
+(2, '2015-07-12 00:00:00', 'qq', 'oiu', 2, 22, 1, '2016-07-08 13:11:22', '2016-07-08 10:29:00', NULL, 0),
 (3, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, NULL, '2016-07-08 13:15:47', '2016-07-08 17:30:29', 0),
 (4, '2014-07-12 00:00:00', 'ee', 'ee', 4, 24, 1, NULL, NULL, '2016-07-08 13:17:01', 0),
-(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 25, 1, NULL, NULL, NULL, 0),
+(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 23, 1, NULL, NULL, NULL, 1),
 (6, '2015-07-12 00:00:00', 'qq', 'qq', 2, 21, 1, NULL, NULL, NULL, 0),
-(7, '2015-07-12 00:00:00', 'ww', 'ww', 3, 21, 1, NULL, NULL, NULL, 0),
+(7, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, NULL, NULL, NULL, 0),
 (8, '2015-08-05 00:00:00', 'ee', 'ee', 1, 22, 1, NULL, NULL, NULL, 0),
-(9, '2014-07-12 00:00:00', 'rr', 'rr', 1, 23, 1, NULL, NULL, NULL, 0),
+(9, '2014-07-12 00:00:00', 'rr', 'rr', 1, 23, 0, NULL, NULL, NULL, 0),
 (10, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
 (11, '2014-06-12 00:00:00', 'tt', 'tt', 2, 24, 1, NULL, NULL, NULL, 0),
 (12, '2014-06-12 00:00:00', 'ww', 'ww', 2, 22, 1, NULL, NULL, NULL, 0),
@@ -385,7 +463,7 @@ DELIMITER ;
 
 CREATE TABLE `scooterassign` (
   `ScooterLicense` varchar(7) NOT NULL,
-  `Date` date NOT NULL,
+  `Date` datetime NOT NULL,
   `Shift` tinyint(4) NOT NULL,
   `CourierID` int(11) NOT NULL,
   `IsActive` tinyint(1) NOT NULL DEFAULT '1'
@@ -396,11 +474,11 @@ CREATE TABLE `scooterassign` (
 --
 
 INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES
-('1111111', '2016-07-05', 2, 21, 1),
-('2222222', '2016-08-03', 0, 22, 0),
-('9999999', '2016-10-04', 1, 23, 1),
-('4444444', '2016-11-02', 0, 24, 0),
-('1111111', '2014-09-12', 1, 22, 0);
+('1111111', '2016-07-05 00:00:00', 2, 21, 1),
+('2222222', '2016-08-03 00:00:00', 0, 22, 0),
+('9999999', '2016-10-04 00:00:00', 1, 23, 1),
+('4444444', '2016-11-02 00:00:00', 0, 24, 0),
+('1111111', '2014-09-12 00:00:00', 1, 22, 0);
 
 -- --------------------------------------------------------
 
@@ -486,7 +564,8 @@ ALTER TABLE `delivery`
 ALTER TABLE `scooterassign`
   ADD KEY `ScooterLicense` (`ScooterLicense`),
   ADD KEY `ScooterLicense_2` (`ScooterLicense`),
-  ADD KEY `CourierID` (`CourierID`);
+  ADD KEY `CourierID` (`CourierID`),
+  ADD KEY `Date` (`Date`);
 
 --
 -- Indexes for table `scooters`
@@ -513,7 +592,7 @@ ALTER TABLE `courier`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `delivery`
 --

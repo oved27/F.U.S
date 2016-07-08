@@ -1,10 +1,11 @@
 	DELIMITER $$
 	use fus$$
-	DROP PROCEDURE IF EXISTS CourierAndScooterByID$$
-	CREATE PROCEDURE DisplayDrivingExperience
-	(IN new_DrivingExperience 	int)
+	DROP PROCEDURE IF EXISTS Display_Customer_Delivery$$
+	CREATE PROCEDURE Display_Customer_Delivery
+	(IN new_CustomerID 	int)
 	BEGIN
-		SELECT * FROM Courier WHERE 	DrivingExperience>new_DrivingExperience;
+		SELECT * from customers c INNER JOIN delivery  d on c.CustomerID=d.CustomerID and c.CustomerID = new_CustomerID;
+
 	END $$
 
 
@@ -21,11 +22,11 @@ END $$
 
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS Display_Scooter_By_KM$$
-CREATE PROCEDURE Display_Scooter_By_KM(
-		IN new_CurrentKM Varchar(7) )
+DROP PROCEDURE IF EXISTS Display_Delivery$$
+CREATE PROCEDURE Display_Delivery(
+		IN new_DeliveryID int )
 BEGIN
-    SELECT * FROM scooters where CurrentKM>new_CurrentKM;	
+    SELECT * FROM delivery WHERE DeliveryID=new_DeliveryID;
 
 END $$
 
