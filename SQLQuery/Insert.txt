@@ -1,30 +1,29 @@
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS new_courier$$
-CREATE PROCEDURE new_courier
-(IN new_UserName 	varchar(255), 
- In new_Password 	varchar(255), 
- IN new_FName 		varchar(255),
- IN new_Lname 		varchar(255),
- IN new_Address 	varchar(255),
- IN new_Phone       varchar(11),
- In new_Role		tinyint(1)
- 
+DROP PROCEDURE IF EXISTS Create_New_Delivery$$
+CREATE PROCEDURE Create_New_Delivery(	
+		In new_PickupAddress	varchar(255)	, 
+		IN new_DropDownAddress	varchar(255)	,
+		IN new_CustomerID 		int				,
+		IN new_CourierID 		int			
 )
 BEGIN
-    INSERT INTO courier  (
-        		FName		, 
-                Lname		, 
-                Address		, 
-                Phone		,
-                DrivingExperience
+    INSERT INTO Delivery  (
+				Date			,
+        		PickupAddress	,
+                DropDownAddress	,
+                CustomerID 		,
+                CourierID 		,
+				IsActive
+					
     )
     VALUES(
-        new_FName	,
-        new_Lname	, 
-        new_Address	,
-        new_Phone	,
-        new_DrivingExperience
+		sysdate()				,
+        new_PickupAddress		, 
+        new_DropDownAddress		,
+        new_CustomerID 			,
+        new_CourierID 			,
+		0
         );
 END $$
 

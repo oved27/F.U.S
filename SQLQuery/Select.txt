@@ -11,12 +11,24 @@
 
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS display_user_by_role$$
-CREATE PROCEDURE display_user_by_role()
+DROP PROCEDURE IF EXISTS Display_Scooter_By_Nexttretment$$
+CREATE PROCEDURE Display_Scooter_By_Nexttretment(
+		IN new_Nexttretment Varchar(7) )
 BEGIN
-    SELECT * FROM users ORDER by Role;
+    SELECT * FROM scooters where scooters.NextTreatment between (new_Nexttretment-10000 +1) and new_Nexttretment
 
 END $$
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS Display_Scooter_By_KM$$
+CREATE PROCEDURE Display_Scooter_By_KM(
+		IN new_CurrentKM Varchar(7) )
+BEGIN
+    SELECT * FROM scooters where CurrentKM>new_CurrentKM;	
+
+END $$
+
 
 
 

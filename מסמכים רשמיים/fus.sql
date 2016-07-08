@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2016 at 11:14 PM
+-- Generation Time: Jul 08, 2016 at 12:20 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -24,6 +24,23 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier` (IN `new_ScooterLicense` VARCHAR(7), IN `new_Date` DATE, IN `new_Shift` TINYINT(4), IN `new_CourierID` INT(11), IN `new_IsActive` TINYINT(1))  BEGIN
+    INSERT INTO scooterassign  (
+        		ScooterLicense 	,
+                Date	 		,
+                Shift			,
+                CourierID 		,
+                IsActive 		
+    )
+    VALUES(
+        new_ScooterLicense 		,
+        new_Date	 			, 
+        new_Shift				,
+        new_CourierID 			,
+        new_IsActive 		
+        );
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CourierAndScooterByID` (IN `new_CourierID` INT)  BEGIN
     SELECT * FROM courier INNER JOIN scooterassign INNER JOIN delivery ON courier.CourierID=scooterassign.CourierID and 
 	courier.CourierID=delivery.CourierID and courier.CourierID=new_CourierID;
@@ -43,6 +60,26 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Courier` (IN `new_FName`
         new_Address	,
         new_Phone	,
         new_DrivingExperience
+        );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Delivery` (IN `new_PickupAddress` VARCHAR(255), IN `new_DropDownAddress` VARCHAR(255), IN `new_CustomerID` INT, IN `new_CourierID` INT)  BEGIN
+    INSERT INTO Delivery  (
+				Date			,
+        		PickupAddress	,
+                DropDownAddress	,
+                CustomerID 		,
+                CourierID 		,
+				IsActive
+					
+    )
+    VALUES(
+		sysdate()				,
+        new_PickupAddress		, 
+        new_DropDownAddress		,
+        new_CustomerID 			,
+        new_CourierID 			,
+		0
         );
 END$$
 
@@ -82,9 +119,55 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `DisplaySpecificUser` (IN `new_User`
     SELECT * FROM users WHERE FName= new_User;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Scooter_By_KM` (IN `new_CurrentKM` VARCHAR(7))  BEGIN
+    SELECT * FROM scooters where CurrentKM>new_CurrentKM;	
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Scooter_By_Model` (IN `new_Model` VARCHAR(7))  BEGIN
+    SELECT * FROM scooters where scooters.Model=new_Model;	
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Scooter_By_Nexttretment` (IN `new_Nexttretment` VARCHAR(7))  BEGIN
+    SELECT * FROM scooters where scooters.NextTreatment between (new_Nexttretment-10000 +1) and new_Nexttretment;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Scooter_By_Type` (IN `new_Type` VARCHAR(7))  BEGIN
+    SELECT * FROM scooters where scooters.Type=new_Type;	
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_Scooter_History` (IN `new_ScooterLicense` VARCHAR(7))  BEGIN
+    SELECT * FROM scooters INNER JOIN scooterassign on scooters.ScooterLicense=scooterassign.ScooterLicense and scooters.ScooterLicense=new_ScooterLicense;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_user_by_role` ()  BEGIN
     SELECT * FROM users ORDER by Role;
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Insert_New_Scooter` (IN `new_ScooterLicense` VARCHAR(7), IN `new_Type` VARCHAR(255), IN `new_Model` YEAR(4), IN `new_NextTreatment` INT(11), IN `new_CurrentKM` INT(11))  BEGIN
+    INSERT INTO Scooters  (
+        		ScooterLicense 	,
+                Type	 		,
+                Model			,
+                NextTreatment 	,
+                CurrentKM 		
+    )
+    VALUES(
+        new_ScooterLicense 		,
+        new_Type	 			, 
+        new_Model				,
+        new_NextTreatment 		,
+        new_CurrentKM 		
+        );
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Assign_Time` (IN `New_DeliveryID` INT)  BEGIN
+	update Delivery set Delivery.AssignTime=sysDate() where DeliveryID=New_DeliveryID;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Address` (IN `new_Courier` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
@@ -97,6 +180,22 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Phone` (IN `new_Courier` VARCHAR(255), IN `new_Phone` VARCHAR(255))  BEGIN
     UPDATE courier set Phone=new_Phone where courier.Fname=new_Courier;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_DropDown_Time` (IN `New_DeliveryID` INT)  BEGIN
+	update Delivery set Delivery.DropDownTime=sysDate() where DeliveryID=New_DeliveryID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_PickUp_Time` (IN `New_DeliveryID` INT)  BEGIN
+	update Delivery set Delivery.PickUpTime=sysDate() where DeliveryID=New_DeliveryID;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Scooter_CurrentKM` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CurrentKM` INT)  BEGIN
+    UPDATE Scooters set CurrentKM=new_CurrentKM where ScooterLicense=new_ScooterLicense;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Scooter_Nexttretment` (IN `new_ScooterLicense` VARCHAR(7))  BEGIN
+    UPDATE Scooters set NextTreatment=NextTreatment+10000 where ScooterLicense=new_ScooterLicense;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_User_Address` (IN `new_User` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
@@ -166,12 +265,12 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`CustomerID`, `FName`, `Lname`, `Address`, `Phone`, `numberOfDelivery`) VALUES
-(1, 'yy', 'yy', 'yy', '666-6666666', 22),
-(2, 'cc', 'cc', 'ccc', '111-1111111', 22),
-(3, 'bb', 'bb', 'bb', '888-8888888', 17),
+(1, 'yy', 'yy', 'yy', '666-6666666', 24),
+(2, 'cc', 'cc', 'ccc', '111-1111111', 23),
+(3, 'bb', 'bb', 'bb', '888-8888888', 19),
 (4, 'dd', 'dd', 'ddd', '222-2222222', 21),
-(5, 'ee', 'ee', 'eec', '222-2222222', 21),
-(6, 'dd', 'dd', 'ddc', '888-9999999', 13),
+(5, 'ee', 'ee', 'eec', '222-2222222', 22),
+(6, 'dd', 'dd', 'ddc', '888-9999999', 14),
 (7, 'rr', 'rr', 'rrc', '777-7777777', 12),
 (8, 'tt', 'tt', 'ttc', '555-5555555', 15);
 
@@ -183,15 +282,15 @@ INSERT INTO `customers` (`CustomerID`, `FName`, `Lname`, `Address`, `Phone`, `nu
 
 CREATE TABLE `delivery` (
   `DeliveryID` int(11) NOT NULL,
-  `Date` date NOT NULL,
+  `Date` datetime NOT NULL,
   `PickupAddress` varchar(255) NOT NULL,
   `DropDownAddress` varchar(255) NOT NULL,
   `CustomerID` int(11) NOT NULL,
   `CourierID` int(11) NOT NULL,
   `IsActive` tinyint(1) NOT NULL DEFAULT '0',
-  `AssignTime` time DEFAULT NULL,
-  `PickupTime` time DEFAULT NULL,
-  `DropDownTime` time DEFAULT NULL,
+  `AssignTime` datetime DEFAULT NULL,
+  `PickupTime` datetime DEFAULT NULL,
+  `DropDownTime` datetime DEFAULT NULL,
   `IsCancel` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=hebrew;
 
@@ -200,66 +299,73 @@ CREATE TABLE `delivery` (
 --
 
 INSERT INTO `delivery` (`DeliveryID`, `Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`, `AssignTime`, `PickupTime`, `DropDownTime`, `IsCancel`) VALUES
-(1, '2016-07-12', 'ss', 'ss', 1, 21, 0, '04:20:00', NULL, NULL, 0),
-(2, '2015-07-12', 'qq', 'qq', 2, 22, 1, NULL, '10:29:00', NULL, 0),
-(3, '2015-07-12', 'ww', 'ww', 3, 23, 1, NULL, NULL, '17:30:29', 0),
-(4, '2014-07-12', 'ee', 'ee', 4, 24, 1, NULL, NULL, NULL, 0),
-(5, '2013-07-12', 'rr', 'rr', 5, 25, 1, NULL, NULL, NULL, 0),
-(6, '2015-07-12', 'qq', 'qq', 2, 21, 1, NULL, NULL, NULL, 0),
-(7, '2015-07-12', 'ww', 'ww', 3, 21, 1, NULL, NULL, NULL, 0),
-(8, '2015-08-05', 'ee', 'ee', 1, 22, 1, NULL, NULL, NULL, 0),
-(9, '2014-07-12', 'rr', 'rr', 1, 23, 1, NULL, NULL, NULL, 0),
-(10, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(11, '2014-06-12', 'tt', 'tt', 2, 24, 1, NULL, NULL, NULL, 0),
-(12, '2014-06-12', 'ww', 'ww', 2, 22, 1, NULL, NULL, NULL, 0),
-(13, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(14, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(15, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(16, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(17, '2015-05-12', 'tt', 'tt', 2, 23, 1, NULL, NULL, NULL, 0),
-(18, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(19, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(20, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(21, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(22, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(23, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(24, '2015-05-12', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
-(25, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(26, '2016-07-12', 'ss', 'ss', 1, 22, 0, NULL, NULL, NULL, 0),
-(30, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(31, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(37, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(40, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(41, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(42, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(43, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(44, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(45, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(46, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(47, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(55, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(56, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(57, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(58, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(59, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(60, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(61, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(62, '2016-07-12', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
-(65, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(66, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(67, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(69, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(70, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(71, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(72, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(73, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(74, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(75, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(76, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(78, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(79, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(80, '2014-06-12', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
-(81, '2014-06-12', 'yy', 'yy', 1, 25, 1, NULL, NULL, NULL, 0);
+(1, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, '2016-07-08 04:20:00', NULL, NULL, 0),
+(2, '2015-07-12 00:00:00', 'qq', 'qq', 2, 22, 1, '2016-07-08 13:11:22', '2016-07-08 10:29:00', NULL, 0),
+(3, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, NULL, '2016-07-08 13:15:47', '2016-07-08 17:30:29', 0),
+(4, '2014-07-12 00:00:00', 'ee', 'ee', 4, 24, 1, NULL, NULL, '2016-07-08 13:17:01', 0),
+(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 25, 1, NULL, NULL, NULL, 0),
+(6, '2015-07-12 00:00:00', 'qq', 'qq', 2, 21, 1, NULL, NULL, NULL, 0),
+(7, '2015-07-12 00:00:00', 'ww', 'ww', 3, 21, 1, NULL, NULL, NULL, 0),
+(8, '2015-08-05 00:00:00', 'ee', 'ee', 1, 22, 1, NULL, NULL, NULL, 0),
+(9, '2014-07-12 00:00:00', 'rr', 'rr', 1, 23, 1, NULL, NULL, NULL, 0),
+(10, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(11, '2014-06-12 00:00:00', 'tt', 'tt', 2, 24, 1, NULL, NULL, NULL, 0),
+(12, '2014-06-12 00:00:00', 'ww', 'ww', 2, 22, 1, NULL, NULL, NULL, 0),
+(13, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(14, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(15, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(16, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(17, '2015-05-12 00:00:00', 'tt', 'tt', 2, 23, 1, NULL, NULL, NULL, 0),
+(18, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(19, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(20, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(21, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(22, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(23, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(24, '2015-05-12 00:00:00', 'vv', 'vv', 2, 21, 1, NULL, NULL, NULL, 0),
+(25, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(26, '2016-07-12 00:00:00', 'ss', 'ss', 1, 22, 0, NULL, NULL, NULL, 0),
+(30, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(31, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(37, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(40, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(41, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(42, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(43, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(44, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(45, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(46, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(47, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(55, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(56, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(57, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(58, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(59, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(60, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(61, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(62, '2016-07-12 00:00:00', 'ss', 'ss', 1, 21, 0, NULL, NULL, NULL, 0),
+(65, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(66, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(67, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(69, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(70, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(71, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(72, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(73, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(74, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(75, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(76, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(78, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(79, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(80, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
+(81, '2014-06-12 00:00:00', 'yy', 'yy', 1, 25, 1, NULL, NULL, NULL, 0),
+(82, '2016-07-08 00:00:00', 'yy', 'ee', 1, 21, 0, NULL, NULL, NULL, 0),
+(83, '0000-00-00 00:00:00', 'qwer', 'qwer', 2, 24, 1, NULL, NULL, NULL, 0),
+(84, '2016-07-08 00:00:00', 'yy', 'ee', 1, 21, 0, NULL, NULL, NULL, 0),
+(85, '2016-07-08 00:00:00', 'yyee', 'trwy', 3, 25, 0, NULL, NULL, NULL, 0),
+(86, '2016-07-08 12:54:28', 'vfer', 'veev', 5, 24, 0, NULL, NULL, NULL, 0),
+(87, '2016-07-08 12:55:40', 'rfhy', 'sbsg', 6, 21, 0, NULL, NULL, NULL, 0),
+(88, '2016-07-08 13:05:24', 'zxc', 'zxc', 3, 24, 0, NULL, NULL, NULL, 0);
 
 --
 -- Triggers `delivery`
@@ -293,7 +399,8 @@ INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `Is
 ('1111111', '2016-07-05', 2, 21, 1),
 ('2222222', '2016-08-03', 0, 22, 0),
 ('9999999', '2016-10-04', 1, 23, 1),
-('4444444', '2016-11-02', 0, 24, 0);
+('4444444', '2016-11-02', 0, 24, 0),
+('1111111', '2014-09-12', 1, 22, 0);
 
 -- --------------------------------------------------------
 
@@ -314,10 +421,11 @@ CREATE TABLE `scooters` (
 --
 
 INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES
-('1111111', 'aa', 1989, 10000, 4585),
+('1111111', 'aa', 1989, 10000, 7000),
+('1234567', 'gfd', 1980, 20000, 15789),
 ('2222222', 'ss', 0000, 20000, 4562),
 ('4444444', 'gg', 1990, 20000, 5622),
-('8888888', 'ff', 1980, 50000, 5433),
+('8888888', 'ff', 1980, 37000, 5433),
 ('9999999', 'dd', 1978, 40000, 352);
 
 -- --------------------------------------------------------
@@ -410,7 +518,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `delivery`
 --
 ALTER TABLE `delivery`
-  MODIFY `DeliveryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `DeliveryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- Constraints for dumped tables
 --

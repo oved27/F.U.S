@@ -48,43 +48,61 @@ call CourierAndScooterByID(22)
 
 ********************
 scooter
-Display statistic on specific scooter
-
-SELECT * FROM scooters INNER JOIN scooterassign on scooters.ScooterLicense=scooterassign.ScooterLicense and scooters.ScooterLicense=1111111
-
 
 insert new scooter
-INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('1111111', 'ss', '1989', '10000', '4585');
-INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('2222222', 'ss', '1586', '20000', '4562');
-INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('9999999', 'dd', '1978', '40000', '352');
-INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('8888888', 'ff', '1980', '50000', '5433');
-INSERT INTO `scooters` (`ScooterLicense`, `Type`, `Model`, `NextTreatment`, `CurrentKM`) VALUES ('4444444', 'gg', '1990', '20000', '5622');
+Call Insert_New_Scooter ('1234567', 'gfd', '1980', '20000', '15789');
+
+Display statistic on specific scooter
+call Display_Scooter_History('1111111')	
+
+
 
 Assign scooter to courier
-INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('1111111', '2016-07-05', '2', '21', '1');
-INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('2222222', '2016-08-03', '0', '22', '0');
-INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('9999999', '2016-10-04', '1', '23', '1');
-INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES ('4444444', '2016-11-02', '0', '24', '0');
-****************************************
+call Assign_Scooter_To_Courier('1111111', '2014-09-12', '1', '22', '0')
+
+Display scooter by Type
+call Display_Scooter_By_Type('aa')
+
+Display scooter by Model
+call Display_Scooter_By_Model(1980)
+
+Display scooter by Nexttretment
+call Display_Scooter_By_Nexttretment(20000)
+
+Display scooter by KM
+call Display_Scooter_By_KM(4000);
+
+
+Update scooter by Nexttretment
+call Update_Scooter_Nexttretment('8888888');
+
+Update scooter by KM
+call Update_Scooter_CurrentKM('1111111', 6000);
+
+*************
+
 
 delivery
 
 create new order delivery
-INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2016-07-12', 'ss', 'ss', '1', '21', '0');
-INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2014-06-12', 'yy', 'yy', '2', '25', '1');
-INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2015-07-12', 'ww', 'ww', '3', '21', '1');
-INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2014-07-12', 'ee', 'ee', '4', '24', '1');
-INSERT INTO `delivery` (`Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`) VALUES ('2013-07-12', 'rr', 'rr', '5', '25', '1');
+call Create_New_Delivery('zxc', 'zxc', '3', '24');
+
 
 Update assign time
-UPDATE `delivery` SET `AssignTime` = '04:20:00' WHERE `delivery`.`DeliveryID` = 1
-
+call Update_Assign_Time(2);
 
 update pickup time
-UPDATE `delivery` SET `PickupTime` = '10:29:00' WHERE `delivery`.`DeliveryID` = 2;
+call Update_PickUp_Time(3);
 
 update dropdown time
-UPDATE `delivery` SET `DropDownTime` = '17:30:29' WHERE `delivery`.`DeliveryID` = 3;
+call Update_DropDown_Time(4);
+
+update PickupAddress
+update DropDownAddress
+update	CourierID
+update	IsActive
+update	IsCancel
+
 
 Display statistic on specific delivery
 SELECT * FROM delivery WHERE delivery.DeliveryID=1

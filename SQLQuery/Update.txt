@@ -1,22 +1,52 @@
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS 	CourierAndScooterByID$$
-CREATE PROCEDURE CourierAndScooterByID
-(IN new_CourierID	int)
+DROP PROCEDURE IF EXISTS 	Update_PickUp_Time$$
+CREATE PROCEDURE Update_PickUp_Time(
+	IN New_DeliveryID	int
+	)
 BEGIN
-    SELECT * FROM courier INNER JOIN scooterassign INNER JOIN delivery ON courier.CourierID=scooterassign.CourierID and 
-	courier.CourierID=delivery.CourierID and courier.CourierID=new_CourierID;
+	update Delivery set Delivery.PickUpTime=sysDate() where DeliveryID=New_DeliveryID;
 END $$
 
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS Update_User_password$$
-CREATE PROCEDURE Update_User_password
-(IN new_User	varchar(255),
-IN new_password 	varchar(255))
+DROP PROCEDURE IF EXISTS 	Update_DropDown_Time$$
+CREATE PROCEDURE Update_DropDown_Time(
+	IN New_DeliveryID	int
+	)
 BEGIN
-    UPDATE users set password=new_password where users.UserName=new_User;
+	update Delivery set Delivery.DropDownTime=sysDate() where DeliveryID=New_DeliveryID;
 END $$
+
+
+
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS Update_Scooter_Nexttretment$$
+CREATE PROCEDURE Update_Scooter_Nexttretment(
+		IN new_ScooterLicense	varchar(7),
+		
+)
+BEGIN
+    UPDATE Scooters set NextTreatment=NextTreatment+10000 where ScooterLicense=new_ScooterLicense;
+END $$
+
+
+
+
+DELIMITER $$
+use fus$$
+DROP PROCEDURE IF EXISTS Update_Scooter_CurrentKM$$
+CREATE PROCEDURE Update_Scooter_CurrentKM(
+		IN new_ScooterLicense	varchar(7),
+		IN new_CurrentKM 	int
+)
+BEGIN
+    UPDATE Scooters set CurrentKM=new_CurrentKM where ScooterLicense=new_ScooterLicense;
+END $$
+
+
 
 DELIMITER $$
 use fus$$
