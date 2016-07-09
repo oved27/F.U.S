@@ -1,7 +1,7 @@
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS 	Update_Customer_Address$$
-CREATE PROCEDURE Update_Customer_Address(
+DROP PROCEDURE IF EXISTS 	Assign_Courier_to_Scooter$$
+CREATE PROCEDURE Assign_Courier_to_Scooter(
 	IN New_CustomerID	int,
 	IN New_Address		varchar(255)
 	)
@@ -12,8 +12,8 @@ END $$
 
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS 	Update_Customer_Phone$$
-CREATE PROCEDURE Update_Customer_Phone(
+DROP PROCEDURE IF EXISTS 	Set_Shift_Time$$
+CREATE PROCEDURE Set_Shift_Time(
 	IN New_CustomerID	int,
 	IN New_Phone		varchar(255)
 	)

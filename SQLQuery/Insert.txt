@@ -1,26 +1,52 @@
 DELIMITER $$
 use fus$$
-DROP PROCEDURE IF EXISTS Create_New_Customer$$
-CREATE PROCEDURE Create_New_Customer(	
-		In New_FName	varchar(255)	, 
-		IN New_Lname	varchar(255)	,
-		IN New_Address 	varchar(255)	,
-		IN New_Phone 	varchar(255)		
+DROP PROCEDURE IF EXISTS Assign_Scooter_To_Courier_2$$
+CREATE PROCEDURE Assign_Scooter_To_Courier_2(	
+		In new_ScooterLicense 	varchar(7)	, 
+		IN new_CourierID 		int	
+		
 )
 BEGIN
-    INSERT INTO Customers  (
-				FName		,
-        		Lname		,
-                Address 	,
-                Phone 		,
+
+    
+
+ 
+ INSERT INTO scooterassign  (
+        	ScooterLicense 	,
+                InputDate	 		,
+                CourierID 		
+                 		
     )
     VALUES(
-		New_FName		,
-        New_Lname		, 
-        New_Address 	,
-        New_Phone 		
-		);
+        new_ScooterLicense 		,
+        sysDate()	 			, 
+	new_CourierID 			
+        	
+        );
+
+IF ((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN update scooterassign set shift=0;
+ELSEIF
+((SELECT CURRENT_TIME())>'08:00:00' && (SELECT CURRENT_TIME())<'16:00:00') THEN update scooterassign set shift=1;
+    else update scooterassign set shift=2;
+ END IF;
+ if(SELECT EXISTS (select * FROM `scooterassign` WHERe ScooterLicense=new_ScooterLicense AND IsActive=0)==0) 
+ THEN UPDATE scooterassign set IsActive=1 where ;
+ 
+ELSE
+ UPDATE scooterassign set IsActive=0;
+
+END IF;
 END $$
+
+
+
+
+
+
+
+
+call Assign_Scooter_To_Courier_2 ('8888888',25,	0);
+SELECT * FROM scooterassign WHERE scooterassign.CourierID=25;
 
 
 
