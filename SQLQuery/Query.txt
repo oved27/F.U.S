@@ -136,3 +136,24 @@ Display all customer delivery
 call Display_Customer_Delivery (1)
 
 
+***************
+scooter Assign
+
+display scooter Assign By Date
+call Display_scooter_Assign_By_Date('2016-08-03 00:00:00');
+                          
+display scooter Assign By Shift
+call Display_scooter_Assign_By_Shift (1);  
+
+           
+display scooter Assign By CourierID
+call Display_scooter_Assign_By_CourierID(21);
+
+                          
+display scooter Assign By IsActive 	
+call Display_scooter_Active_Assign(1);
+
+assign scooter to courier
+call Assign_Scooter_To_Courier ('8888888',25);
+assign scooter to courier
+
