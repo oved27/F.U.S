@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2016 at 05:04 PM
+-- Generation Time: Jul 09, 2016 at 06:03 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -24,21 +24,61 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier` (IN `new_ScooterLicense` VARCHAR(7), IN `new_Date` DATE, IN `new_Shift` TINYINT(4), IN `new_CourierID` INT(11), IN `new_IsActive` TINYINT(1))  BEGIN
-    INSERT INTO scooterassign  (
-        		ScooterLicense 	,
-                Date	 		,
-                Shift			,
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CourierID` INT)  BEGIN
+
+    
+
+ 
+ INSERT INTO scooterassign  (
+        	ScooterLicense 	,
+                InputDate	 		,
                 CourierID 		,
                 IsActive 		
     )
     VALUES(
         new_ScooterLicense 		,
-        new_Date	 			, 
-        new_Shift				,
-        new_CourierID 			,
-        new_IsActive 		
+        sysDate()	 			, 
+	new_CourierID 			,
+        1		
         );
+
+IF ((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN update scooterassign set shift=0;
+ELSEIF
+((SELECT CURRENT_TIME())>'08:00:00' && (SELECT CURRENT_TIME())<'16:00:00') THEN update scooterassign set shift=1;
+    else update scooterassign set shift=2;
+ END IF;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier_2` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CourierID` INT)  BEGIN
+
+    
+
+ 
+ INSERT INTO scooterassign  (
+        	ScooterLicense 	,
+                InputDate	 		,
+                CourierID 		
+                 		
+    )
+    VALUES(
+        new_ScooterLicense 		,
+        sysDate()	 			, 
+	new_CourierID 			
+        	
+        );
+
+IF ((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN update scooterassign set shift=0;
+ELSEIF
+((SELECT CURRENT_TIME())>'08:00:00' && (SELECT CURRENT_TIME())<'16:00:00') THEN update scooterassign set shift=1;
+    else update scooterassign set shift=2;
+ END IF;
+ if(SELECT EXISTS (select * FROM `scooterassign` WHERe ScooterLicense=new_ScooterLicense AND IsActive=0)) 
+ THEN UPDATE scooterassign set IsActive=1;
+ 
+ELSE
+ UPDATE scooterassign set IsActive=0;
+
+END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CourierAndScooterByID` (IN `new_CourierID` INT)  BEGIN
@@ -149,7 +189,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_ScooterDelivery` (IN `new_S
 	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Active_Assign` (IN `new_IsActive` INT)  BEGIN
-		SELECT * from scooterassign s where s.IsActive=new_IsActive; 
+		SELECT * from scooterassign s where s.IsActive=new_IsActive order by s.Date asc; 
 	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_CourierID` (IN `new_CourierID` INT)  BEGIN
@@ -309,8 +349,8 @@ CREATE TABLE `courier` (
 --
 
 INSERT INTO `courier` (`CourierID`, `FName`, `Lname`, `Address`, `Phone`, `DrivingExperience`) VALUES
-(21, 'aa', 'aa', 'frvf', '555-8889997', 5),
-(22, 'rr', 'rr', 'rr', '888-8888888', 9),
+(21, 'aa', 'aa', 'frvf', '565-4355555', 5),
+(22, 'rr', 'rr', 'rr', '555-8889997', 9),
 (23, 'cc', 'cc', 'cc', '333-3333333', 5),
 (24, 'dd', 'dd', 'dd', '444-4444444', 6),
 (25, 'ee', 'ee', 'ee', '555-5555555', 7),
@@ -463,7 +503,7 @@ DELIMITER ;
 
 CREATE TABLE `scooterassign` (
   `ScooterLicense` varchar(7) NOT NULL,
-  `Date` datetime NOT NULL,
+  `InputDate` datetime NOT NULL,
   `Shift` tinyint(4) NOT NULL,
   `CourierID` int(11) NOT NULL,
   `IsActive` tinyint(1) NOT NULL DEFAULT '1'
@@ -473,12 +513,13 @@ CREATE TABLE `scooterassign` (
 -- Dumping data for table `scooterassign`
 --
 
-INSERT INTO `scooterassign` (`ScooterLicense`, `Date`, `Shift`, `CourierID`, `IsActive`) VALUES
-('1111111', '2016-07-05 00:00:00', 2, 21, 1),
-('2222222', '2016-08-03 00:00:00', 0, 22, 0),
+INSERT INTO `scooterassign` (`ScooterLicense`, `InputDate`, `Shift`, `CourierID`, `IsActive`) VALUES
+('2222222', '2016-08-03 00:00:00', 1, 22, 1),
 ('9999999', '2016-10-04 00:00:00', 1, 23, 1),
-('4444444', '2016-11-02 00:00:00', 0, 24, 0),
-('1111111', '2014-09-12 00:00:00', 1, 22, 0);
+('4444444', '2016-11-02 00:00:00', 1, 24, 1),
+('1111111', '2014-09-12 00:00:00', 1, 22, 1),
+('8888888', '2016-07-09 15:05:59', 1, 25, 1),
+('8888888', '2016-07-09 15:06:17', 1, 25, 1);
 
 -- --------------------------------------------------------
 
@@ -563,9 +604,9 @@ ALTER TABLE `delivery`
 --
 ALTER TABLE `scooterassign`
   ADD KEY `ScooterLicense` (`ScooterLicense`),
-  ADD KEY `ScooterLicense_2` (`ScooterLicense`),
   ADD KEY `CourierID` (`CourierID`),
-  ADD KEY `Date` (`Date`);
+  ADD KEY `Date` (`InputDate`),
+  ADD KEY `IsActive` (`IsActive`);
 
 --
 -- Indexes for table `scooters`
