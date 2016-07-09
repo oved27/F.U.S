@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2016 at 06:03 PM
+-- Generation Time: Jul 09, 2016 at 09:52 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -25,61 +25,31 @@ DELIMITER $$
 -- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CourierID` INT)  BEGIN
+DECLARE temp INT ;
+IF
+	((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN set temp=0;
+ELSEIF
+	((SELECT CURRENT_TIME())>'08:00:00' && (SELECT CURRENT_TIME())<'16:00:00') THEN set temp=1;
+   else
+   set temp=2;
+ END IF;
 
-    
-
- 
  INSERT INTO scooterassign  (
-        	ScooterLicense 	,
-                InputDate	 		,
-                CourierID 		,
-                IsActive 		
+        	ScooterLicense 		,
+            InputDate		,
+            CourierID 		,
+            IsActive 		,
+			shift	
     )
     VALUES(
         new_ScooterLicense 		,
         sysDate()	 			, 
-	new_CourierID 			,
-        1		
+		new_CourierID 			,
+        1						,	
+		temp		
         );
 
-IF ((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN update scooterassign set shift=0;
-ELSEIF
-((SELECT CURRENT_TIME())>'08:00:00' && (SELECT CURRENT_TIME())<'16:00:00') THEN update scooterassign set shift=1;
-    else update scooterassign set shift=2;
- END IF;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier_2` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CourierID` INT)  BEGIN
-
-    
-
- 
- INSERT INTO scooterassign  (
-        	ScooterLicense 	,
-                InputDate	 		,
-                CourierID 		
-                 		
-    )
-    VALUES(
-        new_ScooterLicense 		,
-        sysDate()	 			, 
-	new_CourierID 			
-        	
-        );
-
-IF ((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN update scooterassign set shift=0;
-ELSEIF
-((SELECT CURRENT_TIME())>'08:00:00' && (SELECT CURRENT_TIME())<'16:00:00') THEN update scooterassign set shift=1;
-    else update scooterassign set shift=2;
- END IF;
- if(SELECT EXISTS (select * FROM `scooterassign` WHERe ScooterLicense=new_ScooterLicense AND IsActive=0)) 
- THEN UPDATE scooterassign set IsActive=1;
- 
-ELSE
- UPDATE scooterassign set IsActive=0;
-
-END IF;
-END$$
+ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CourierAndScooterByID` (IN `new_CourierID` INT)  BEGIN
     SELECT * FROM courier INNER JOIN scooterassign INNER JOIN delivery ON courier.CourierID=scooterassign.CourierID and 
@@ -514,12 +484,18 @@ CREATE TABLE `scooterassign` (
 --
 
 INSERT INTO `scooterassign` (`ScooterLicense`, `InputDate`, `Shift`, `CourierID`, `IsActive`) VALUES
-('2222222', '2016-08-03 00:00:00', 1, 22, 1),
-('9999999', '2016-10-04 00:00:00', 1, 23, 1),
-('4444444', '2016-11-02 00:00:00', 1, 24, 1),
-('1111111', '2014-09-12 00:00:00', 1, 22, 1),
-('8888888', '2016-07-09 15:05:59', 1, 25, 1),
-('8888888', '2016-07-09 15:06:17', 1, 25, 1);
+('2222222', '2016-08-03 00:00:00', 1, 22, 0),
+('9999999', '2016-10-04 00:00:00', 2, 23, 1),
+('4444444', '2016-11-02 00:00:00', 2, 24, 1),
+('1111111', '2014-09-12 00:00:00', 1, 22, 0),
+('8888888', '2016-07-09 15:05:59', 2, 25, 1),
+('8888888', '2016-07-09 15:06:17', 2, 25, 1),
+('8888888', '2016-07-09 19:59:44', 2, 25, 1),
+('8888888', '2016-07-09 20:10:58', 0, 27, 1),
+('8888888', '2016-07-09 20:11:04', 0, 24, 1),
+('8888888', '2016-07-09 20:13:14', 0, 25, 1),
+('8888888', '2016-07-09 20:16:30', 0, 24, 1),
+('8888888', '2016-07-09 20:40:21', 2, 25, 1);
 
 -- --------------------------------------------------------
 
