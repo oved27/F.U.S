@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2016 at 07:48 PM
+-- Generation Time: Jul 11, 2016 at 08:27 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -66,6 +66,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `CourierAndScooterByID` (IN `new_Cou
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Courier` (IN `new_FName` VARCHAR(255), IN `new_Lname` VARCHAR(255), IN `new_Address` VARCHAR(255), IN `new_Phone` VARCHAR(11), IN `new_DrivingExperience` INT)  BEGIN
+if (new_DrivingExperience>=3) then
     INSERT INTO courier  (
         		FName		, 
                 Lname		, 
@@ -80,7 +81,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Courier` (IN `new_FName`
         new_Phone	,
         new_DrivingExperience
         );
-END$$
+else
+select"Driving experience is less then 3";
+	
+end if;
+ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Create_New_Customer` (IN `New_FName` VARCHAR(255), IN `New_Lname` VARCHAR(255), IN `New_Address` VARCHAR(255), IN `New_Phone` VARCHAR(255))  BEGIN
     INSERT INTO Customers  (
@@ -279,6 +284,7 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_DropDown_Time` (IN `New_DeliveryID` INT)  BEGIN
 	update Delivery set Delivery.DropDownTime=sysDate() where DeliveryID=New_DeliveryID;
+    	update Delivery set IsActive=0 where DeliveryID=New_DeliveryID;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_PickupAddress` (IN `New_DeliveryID` INT, IN `New_PickupAddress` VARCHAR(255))  BEGIN
@@ -287,6 +293,7 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_PickUp_Time` (IN `New_DeliveryID` INT)  BEGIN
 	update Delivery set Delivery.PickUpTime=sysDate() where DeliveryID=New_DeliveryID;
+    	update Delivery set isActive=1 where DeliveryID=New_DeliveryID;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Scooter_CurrentKM` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CurrentKM` INT)  BEGIN
@@ -346,7 +353,8 @@ INSERT INTO `courier` (`CourierID`, `FName`, `Lname`, `Address`, `Phone`, `Drivi
 (25, 'ee', 'ee', 'ee', '555-5555555', 7),
 (26, 'bb', 'bb', 'bb', '222-2222222', 4),
 (27, 'vv', 'vv', 'vv', '666-6666666', 4),
-(28, 'jj', 'jj', 'jj', '666-5566778', 6);
+(28, 'jj', 'jj', 'jj', '666-5566778', 6),
+(29, 'fd', 'dfd', 'fd', '563-6756565', 6);
 
 -- --------------------------------------------------------
 
@@ -408,14 +416,14 @@ CREATE TABLE `delivery` (
 
 INSERT INTO `delivery` (`DeliveryID`, `Date`, `PickupAddress`, `DropDownAddress`, `CustomerID`, `CourierID`, `IsActive`, `AssignTime`, `PickupTime`, `DropDownTime`, `IsCancel`) VALUES
 (1, '2016-07-12 00:00:00', 'wer', 'ss', 1, 21, 0, '2016-07-08 04:20:00', NULL, NULL, 0),
-(2, '2015-07-12 00:00:00', 'qq', 'oiu', 2, 22, 1, '2016-07-08 13:11:22', '2016-07-08 10:29:00', NULL, 0),
+(2, '2015-07-12 00:00:00', 'qq', 'oiu', 2, 22, 0, '2016-07-08 13:11:22', '2016-07-08 10:29:00', '2016-07-11 21:24:54', 0),
 (3, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, NULL, '2016-07-08 13:15:47', '2016-07-08 17:30:29', 0),
 (4, '2014-07-12 00:00:00', 'ee', 'ee', 4, 24, 1, NULL, NULL, '2016-07-08 13:17:01', 0),
-(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 23, 1, NULL, NULL, NULL, 1),
+(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 23, 0, NULL, NULL, '2016-07-11 21:25:33', 1),
 (6, '2015-07-12 00:00:00', 'qq', 'qq', 2, 21, 1, NULL, NULL, NULL, 0),
 (7, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, NULL, NULL, NULL, 0),
 (8, '2015-08-05 00:00:00', 'ee', 'ee', 1, 22, 1, NULL, NULL, NULL, 0),
-(9, '2014-07-12 00:00:00', 'rr', 'rr', 1, 23, 0, NULL, NULL, NULL, 0),
+(9, '2014-07-12 00:00:00', 'rr', 'rr', 1, 23, 1, NULL, '2016-07-11 21:26:33', NULL, 0),
 (10, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
 (11, '2014-06-12 00:00:00', 'tt', 'tt', 2, 24, 1, NULL, NULL, NULL, 0),
 (12, '2014-06-12 00:00:00', 'ww', 'ww', 2, 22, 1, NULL, NULL, NULL, 0),
@@ -620,7 +628,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courier`
 --
 ALTER TABLE `courier`
-  MODIFY `CourierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `CourierID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `customers`
 --
