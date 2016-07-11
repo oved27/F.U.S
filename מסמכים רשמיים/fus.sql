@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2016 at 09:52 PM
+-- Generation Time: Jul 11, 2016 at 07:48 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -26,6 +26,7 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Assign_Scooter_To_Courier` (IN `new_ScooterLicense` VARCHAR(7), IN `new_CourierID` INT)  BEGIN
 DECLARE temp INT ;
+DECLARE col_exists INT;
 IF
 	((SELECT CURRENT_TIME())>'00:00:00' && (SELECT CURRENT_TIME())<'08:00:00') THEN set temp=0;
 ELSEIF
@@ -33,10 +34,17 @@ ELSEIF
    else
    set temp=2;
  END IF;
-
+ 
+ if exists (SELECT *  FROM  scooterassign  WHERE ScooterLicense = new_ScooterLicense and isActive=1) then
+ select 'Scooter already assign';
+ END if;
+ if EXISTS (SELECT *  FROM  scooterassign  WHERE CourierID = new_CourierID and isActive=1) then 
+ select "this courier already assign scooter";
+ 
+ else
  INSERT INTO scooterassign  (
         	ScooterLicense 		,
-            InputDate		,
+            AssignTime		,
             CourierID 		,
             IsActive 		,
 			shift	
@@ -48,7 +56,8 @@ ELSEIF
         1						,	
 		temp		
         );
-
+	
+ end if;
  END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CourierAndScooterByID` (IN `new_CourierID` INT)  BEGIN
@@ -220,6 +229,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Insert_New_Scooter` (IN `new_Scoote
         new_CurrentKM 		
         );
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UnAssign_Scooter` (IN `new_ScooterLicense` VARCHAR(7))  BEGIN
+ if exists (SELECT *  FROM  scooterassign  WHERE ScooterLicense = new_ScooterLicense and isActive=1) then
+ update scooterassign set DropTime=sysDate()  where ScooterLicense = new_ScooterLicense and isActive=1;
+  update scooterassign set  isActive=0 where ScooterLicense = new_ScooterLicense and isActive=1;
+ else
+ select "Error. This scooter is not assign"; 
+
+	
+ end if;
+ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Assign_Time` (IN `New_DeliveryID` INT)  BEGIN
 	update Delivery set Delivery.AssignTime=sysDate() where DeliveryID=New_DeliveryID;
@@ -473,7 +493,8 @@ DELIMITER ;
 
 CREATE TABLE `scooterassign` (
   `ScooterLicense` varchar(7) NOT NULL,
-  `InputDate` datetime NOT NULL,
+  `AssignTime` datetime NOT NULL,
+  `DropTime` datetime NOT NULL,
   `Shift` tinyint(4) NOT NULL,
   `CourierID` int(11) NOT NULL,
   `IsActive` tinyint(1) NOT NULL DEFAULT '1'
@@ -483,19 +504,14 @@ CREATE TABLE `scooterassign` (
 -- Dumping data for table `scooterassign`
 --
 
-INSERT INTO `scooterassign` (`ScooterLicense`, `InputDate`, `Shift`, `CourierID`, `IsActive`) VALUES
-('2222222', '2016-08-03 00:00:00', 1, 22, 0),
-('9999999', '2016-10-04 00:00:00', 2, 23, 1),
-('4444444', '2016-11-02 00:00:00', 2, 24, 1),
-('1111111', '2014-09-12 00:00:00', 1, 22, 0),
-('8888888', '2016-07-09 15:05:59', 2, 25, 1),
-('8888888', '2016-07-09 15:06:17', 2, 25, 1),
-('8888888', '2016-07-09 19:59:44', 2, 25, 1),
-('8888888', '2016-07-09 20:10:58', 0, 27, 1),
-('8888888', '2016-07-09 20:11:04', 0, 24, 1),
-('8888888', '2016-07-09 20:13:14', 0, 25, 1),
-('8888888', '2016-07-09 20:16:30', 0, 24, 1),
-('8888888', '2016-07-09 20:40:21', 2, 25, 1);
+INSERT INTO `scooterassign` (`ScooterLicense`, `AssignTime`, `DropTime`, `Shift`, `CourierID`, `IsActive`) VALUES
+('2222222', '2016-08-03 00:00:00', '0000-00-00 00:00:00', 1, 22, 0),
+('9999999', '2016-10-04 00:00:00', '2016-07-11 20:40:18', 2, 23, 0),
+('4444444', '2016-11-02 00:00:00', '0000-00-00 00:00:00', 2, 24, 1),
+('1111111', '2014-09-12 00:00:00', '0000-00-00 00:00:00', 1, 22, 0),
+('1111111', '2016-07-11 19:37:20', '0000-00-00 00:00:00', 2, 27, 1),
+('1111111', '2016-07-11 19:45:35', '0000-00-00 00:00:00', 2, 22, 1),
+('2222222', '2016-07-11 19:46:21', '0000-00-00 00:00:00', 2, 21, 1);
 
 -- --------------------------------------------------------
 
@@ -581,7 +597,7 @@ ALTER TABLE `delivery`
 ALTER TABLE `scooterassign`
   ADD KEY `ScooterLicense` (`ScooterLicense`),
   ADD KEY `CourierID` (`CourierID`),
-  ADD KEY `Date` (`InputDate`),
+  ADD KEY `Date` (`AssignTime`),
   ADD KEY `IsActive` (`IsActive`);
 
 --

@@ -155,5 +155,6 @@ call Display_scooter_Active_Assign(1);
 
 assign scooter to courier
 call Assign_Scooter_To_Courier ('8888888',25);
-assign scooter to courier
+Unassign scooter to courier
+call UnAssign_Scooter('8888888');
 
