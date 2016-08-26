@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2016 at 08:27 PM
+-- Generation Time: Aug 26, 2016 at 02:27 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -173,7 +173,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_ScooterDelivery` (IN `new_S
 	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Active_Assign` (IN `new_IsActive` INT)  BEGIN
-		SELECT * from scooterassign s where s.IsActive=new_IsActive order by s.Date asc; 
+		SELECT * from scooterassign s where s.IsActive=new_IsActive order by s.AssignTime asc; 
 	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_CourierID` (IN `new_CourierID` INT)  BEGIN
@@ -181,7 +181,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_CourierID
 	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_Date` (IN `new_Date` DATETIME)  BEGIN
-		SELECT * from scooterassign s where s.Date>new_Date order by s.Date asc; 
+		SELECT * from scooterassign s where s.Date>new_Date order by s.AssignTime asc; 
 	END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Display_scooter_Assign_By_Shift` (IN `new_Shift` TINYINT)  BEGIN
@@ -250,7 +250,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Assign_Time` (IN `New_Delive
 	update Delivery set Delivery.AssignTime=sysDate() where DeliveryID=New_DeliveryID;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Cancel` (IN `New_DeliveryID` INT, IN `New_IsCancel` TINYINT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Cancel_Delivery` (IN `New_DeliveryID` INT, IN `New_IsCancel` TINYINT)  BEGIN
     UPDATE Delivery set IsCancel=New_IsCancel where DeliveryID=New_DeliveryID;
 END$$
 
@@ -260,10 +260,6 @@ END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Address` (IN `new_Courier` VARCHAR(255), IN `new_Address` VARCHAR(255))  BEGIN
     UPDATE courier set Address=new_Address where courier.Fname=new_Courier;
-END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_DrivingExperience` (IN `new_Courier` VARCHAR(255), IN `new_DrivingExperience` INT)  BEGIN
-    UPDATE courier set DrivingExperience=new_DrivingExperience where courier.Fname=new_Courier;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Update_Courier_Phone` (IN `new_Courier` VARCHAR(255), IN `new_Phone` VARCHAR(255))  BEGIN
