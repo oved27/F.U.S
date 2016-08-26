@@ -87,7 +87,7 @@ fieldset{
         <hr class="colorgraph">
 
             <div class="panel-body">
-                    <form accept-charset="UTF-8" role="form" method="post" action="index.php?page=checking">
+                    <form accept-charset="UTF-8" role="form" method="post" action="CheckLogin.php">
                     <fieldset>
                         <div class="form-group">
                             <input class="form-control" placeholder="User Name" name="UserName" type="text">
