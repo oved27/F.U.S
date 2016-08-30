@@ -26,9 +26,8 @@
         }
 
 .colorgraph {
-
-  margin-left: 34% ;
-    width: 32%;	
+  margin-left: 500px ;
+    width: 400px;
   height: 5px;
   border-top: 0;
   background: #5cb85c;

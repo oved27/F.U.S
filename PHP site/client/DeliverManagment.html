@@ -1,7 +1,7 @@
 <html dir="rtl">
 <head>
 
-<meta charset="utf-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -12,9 +12,6 @@
 
 </head>
 <style>
-li {
-    float: left;
-}
 
   .status{
     display: inline-block;
@@ -41,50 +38,41 @@ li {
   }
 
   .btn.btn-danger{
-	width: 100%;
-	font-size:120%;
+
+   width: 150px;
  }
- 
  .btn.btn-warning{
-   width: 100%;
+   width: 296px;
  }
  .PickUp{
   margin-top: 30%;
-  margin-right:30%;
-  margin-left:30%;
-  width: 80%;
   float: left;
-  
+  margin-right:50px;
+  margin-left:50px;
 }
 .Cancel{
   margin-top: 22%;
-  margin-right:30%;
-  margin-left:30%;
-  width: 80%;
   float: left;
-  
+  margin-right:50px;
+  margin-left:50px;
 }
 .Deliver{
   margin-top: 22%;
-  margin-right:30%;
-  margin-left:30%;
-  width: 80%;
   float: left;
+  margin-right:50px;
+  margin-left:50px;
 }
 .Delay{
   margin-top: 22%;
-  margin-right:30%;
-  margin-left:30%;
-  width: 80%;
   float: left;
-  
+  margin-right:50px;
+  margin-left:50px;
 }
 .ReAssign{
   margin-top: 22%;
   float: left;
- margin-right:30%;
-  margin-left:30%;
-  width: 80%;
+  margin-right:50px;
+  margin-left:50px;
 }
 #DeliveryTitle{
  margin-top: 5%;
@@ -129,7 +117,7 @@ li {
  border-radius:6px;
 }
 .SearchByCourier{
- margin-top: 50%;
+ margin-top: 20%;
  margin-left: auto;
  margin-right: auto;
  width: 80%;
@@ -139,59 +127,14 @@ li {
  color:white;
  border-radius:6px;
 }
-
-.dropbtn{
- margin-top: 20%;
- margin-left: auto;
- margin-right: 10px;
- align:right;
- width: 80%;
- text-align: center;
- font-size: 20px;
-  background-color: white;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-	width:100%;
-    color: black;
-    text-align: center;
-    
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdownContent {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdownContent a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdownContent a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdownContent {
-    display: block;
+input{
+  margin-right: 25%;
+  margin-top: 10px;
 }
 </style>
 
 <meta charset="utf-8">
+
 
 <body>
  <div class="container">
@@ -240,34 +183,16 @@ li.dropdown {
  <div class="SearchByCustomer">
    איתור משלוח על פי לקוח
  </div>
- 
-
-<ul>
-  <li class="dropdown" style="float:right;>
-    <a href="#" class="dropbtn">מספר לקוח</a>
-    <div class="dropdownContent">
-      <a href="#">Link </a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </li>
-</ul>
+ <div class="SearchByCustomerContent">
+   <input type="text" name="SearchByCustomer">
+ </div>
 
  <div class="SearchByCourier">
    איתור משלוח על פי שליח
  </div>
- 
- <ul>
-  <li class="dropdown" style="float:right;>
-    <a href="#" class="dropbtn">שם שליח</a>
-    <div class="dropdownContent">
-      <a href="#">Link </a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </li>
-</ul>
-
+ <div class="SearchByCourierContent">
+   <input type="text" name="SearchByCourier">
+ </div>
 
 </div>
 </div>
