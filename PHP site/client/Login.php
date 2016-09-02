@@ -9,7 +9,7 @@
          height: 99%;
          
     }
-		#container{
+    #container{
             height: 80%;
           margin-top: 50px; 
           margin-bottom: 50px; 
@@ -26,8 +26,9 @@
         }
 
 .colorgraph {
-  margin-left: 500px ;
-    width: 400px;
+
+  margin-left: 34% ;
+    width: 32%; 
   height: 5px;
   border-top: 0;
   background: #5cb85c;
@@ -70,12 +71,14 @@ text-align: center;
 
 }
 .checkbox{
-   margin-left: 448px;
+  width: 150px;
+   margin-right:auto;
+ margin-left:auto;
 }
 fieldset{
     border: none;
 }
-	</style>
+  </style>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript"></script>
 </head>
@@ -86,7 +89,7 @@ fieldset{
         <hr class="colorgraph">
 
             <div class="panel-body">
-                    <form accept-charset="UTF-8" role="form" method="post" action="CheckLogin.php">
+                    <form accept-charset="UTF-8" role="form" method="post" action="../db/db.php">
                     <fieldset>
                         <div class="form-group">
                             <input class="form-control" placeholder="User Name" name="UserName" type="text">
