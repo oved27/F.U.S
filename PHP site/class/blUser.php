@@ -27,20 +27,20 @@ class blUser {
         return $html;
     }
     
-    /*
-      public static function getHtmlUserDiv(db $db) {
+    
+      public static function getHtmlActiveDelivery(db $db) {
         $array = array();
         $html = "";
         try {
-            $array = dalUser::getUsers($db);
+            $array = dalUser::getActiveDelivery($db);
             foreach ($array as $value) {
-                $html .= "<span> id:" . $value->id . " " . $value->email . "</span><br/>";
+                $html .= "<span>" . $value->PickupAddress ."</span><br/>";
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
         return $html;
-    }*/
+    }
 
 
 }

@@ -10,182 +10,111 @@
 
 </head>
 <style>
-li {
-    float: left;
-}
-
+  body{
+    width: 100%;
+    position: absolute;
+    border:1px solid;
+  }
+  .container{
+    margin-right:95px;
+    position: absolute;
+    height:650px;
+  }
   .status{
     display: inline-block;
     float: left;
-    width:20%;
-    height:85%;
-
+    width:13%;
+    height:100%;
+    border-right: 1px solid black;
+    position: relative;
   }
   .DisplayDelivery{
     display: inline-block;
     float: left;
-    width:50%;
-    height:85%;
-    
+    width:67%;
+    height:100%; 
+     position: relative; 
   }
 
-  .Menu{
-    display: inline-block;
-    width:30%;
-    float: left;
-    height:85%;
-    
 
-  }
+  .buttonStatus{
+   width: 130px;
+   text-align: center;
+   font-size: 16px;
+   background-color: #D9534F;
+   color:white;
+   border:none;
+   position: relative;
+   border:1px solid black;
+   margin-right: 22px;
+ }
+ .buttonStatus:hover{
+   background-color: #C9302C;
+ }
 
-  .btn.btn-danger{
-  width: 100%;
-  font-size:120%;
- }
- 
- .btn.btn-warning{
-   width: 100%;
- }
  .PickUp{
   margin-top: 30%;
   margin-right:30%;
   margin-left:30%;
   width: 80%;
   float: left;
-  
+   position: relative;
 }
-.Cancel{
+.Cancel , .Deliver , .Delay , .ReAssign{
   margin-top: 22%;
   margin-right:30%;
   margin-left:30%;
   width: 80%;
   float: left;
-  
-}
-.Deliver{
-  margin-top: 22%;
-  margin-right:30%;
-  margin-left:30%;
-  width: 80%;
-  float: left;
-}
-.Delay{
-  margin-top: 22%;
-  margin-right:30%;
-  margin-left:30%;
-  width: 80%;
-  float: left;
-  
-}
-.ReAssign{
-  margin-top: 22%;
-  float: left;
- margin-right:30%;
-  margin-left:30%;
-  width: 80%;
-}
-#DeliveryTitle{
- margin-top: 5%;
- margin-left: auto;
- margin-right: auto;
- width: 80%;
- text-align: center;
- font-size: 20px;
- background-color: #F0AD4E;
- color:white;
- border-radius:6px;
+   position: relative;
 }
 #DeliveryContent{
- margin-left: auto;
- margin-right: auto;
  background-image: url(../img/background.jpg);
- width: 80%;
- height: 60%;
+ width: 100%;
+ height: 100%;
+  position: relative;
 }
 #container{
+  width: 100%;
   height:82%;
-  border-style: solid;
-  border-color: black;
+  border:1px solid black;
+  border-top:none;
+   position: relative;
 }
 #title{
-  background-color: #F0AD4E;
   text-align: center;
+  background-color: #F0AD4E;
+  border:1px solid black;
+  font-size:25px;
   width: 100%;
-  height: 5%;
-  font-size: 20px;
-  font-weight: bold;
+  position: relative;
 }
+
+  .Menu{
+    display: inline-block;
+    float: left;
+    height:100%;
+    width: 20%;
+    border-left: 1px solid black;
+     position: relative;
+  }
 .SearchByCustomer{
- margin-top: 20%;
- margin-left: auto;
- margin-right: auto;
- width: 80%;
+ width: 100%;
  text-align: center;
- font-size: 20px;
+ font-size: 16px;
  background-color: #D9534F;
  color:white;
- border-radius:6px;
+ position: relative;
 }
 .SearchByCourier{
  margin-top: 50%;
- margin-left: auto;
- margin-right: auto;
- width: 80%;
+ width: 100%;
  text-align: center;
- font-size: 20px;
+ font-size: 16px;
  background-color: #D9534F;
  color:white;
- border-radius:6px;
+  position: relative;
 }
-
-.dropbtn{
- margin-top: 20%;
- margin-left: auto;
- margin-right: 10px;
- align:right;
- width: 80%;
- text-align: center;
- font-size: 20px;
-  background-color: white;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-  width:100%;
-    color: black;
-    text-align: center;
-    
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdownContent {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdownContent a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdownContent a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdownContent {
-    display: block;
 }
 </style>
 
@@ -198,13 +127,14 @@ li.dropdown {
     <nav class="navbar navbar-inverse">
      <div class="container-fluid">
 
-      <ul class="nav navbar-nav">
-       <li class="active"><a href="#">Home</a></li>
-       <li><a href="#">Reports</a></li>
-       <li><a href="#">History</a></li>
-       <li><a href="#">Delivery Managment</a></li>
-       <li><a href="#">Exit</a></li>
-     </ul>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="HomeManager.php">Home</a></li>
+          <li><a href="Reports.php">Reports</a></li>
+          <li><a href="AddUser.php">Add User</a></li>
+          <li><a href="UserManagement.php">User Managment</a></li>
+          <li><a href="DeliverManagment.php">DeliverManagment</a></li>
+          <li><a href="login.php">Exit</a></li>
+        </ul>
    </div>
  </nav>
 </div>
@@ -212,63 +142,41 @@ li.dropdown {
 <div id="container">
   <div class="status">
     <div class="PickUp">
-     <button type="button" class="btn btn-danger">נאסף</button>
+     <button type="button" class="buttonStatus">נאסף</button>
    </div>
    <div class="Cancel">
-     <button type="button" class="btn btn-danger">התבטל</button>
+     <button type="button" class="buttonStatus">התבטל</button>
    </div>
    <div class="Deliver">
-     <button type="button" class="btn btn-danger">נמסר</button>
+     <button type="button" class="buttonStatus">נמסר</button>
    </div>
    <div class="Delay">
-     <button type="button" class="btn btn-danger">מתעקב</button>
+     <button type="button" class="buttonStatus">מתעקב</button>
    </div>
    <div class="ReAssign">
-     <button type="button" class="btn btn-danger">עדכון שליח</button>
+     <button type="button" class="buttonStatus">עדכון שליח</button>
    </div>
  </div>
  <div class="DisplayDelivery">
-  <div id="DeliveryTitle">
-   <b> פרטי משלוח</b>
+   <div id="DeliveryContent">
+     <b> פרטי משלוח</b>
+   </div>
  </div>
- <div id="DeliveryContent">
-   
+ <div class="menu" >
+   <div class="SearchByCustomer">
+     איתור משלוח על פי לקוח
+   </div><br> 
+   <div>
+     לקוח: <input type="text" name="SearchByCustomerText">
+   </div>
+
+   <div class="SearchByCourier">
+     איתור משלוח על פי שליח
+   </div><br>
+   <div>
+     שליח: <input type="text" name="SearchByCourierText">
+   </div>
  </div>
-</div>
-<div class="menu" >
- <div class="SearchByCustomer">
-   איתור משלוח על פי לקוח
- </div>
- 
-
-<ul>
-  <li class="dropdown" style="float:right;>
-    <a href="#" class="dropbtn">מספר לקוח</a>
-    <div class="dropdownContent">
-      <a href="#">Link </a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </li>
-</ul>
-
- <div class="SearchByCourier">
-   איתור משלוח על פי שליח
- </div>
- 
- <ul>
-  <li class="dropdown" style="float:right;>
-    <a href="#" class="dropbtn">שם שליח</a>
-    <div class="dropdownContent">
-      <a href="#">Link </a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </li>
-</ul>
-
-
-</div>
 </div>
 </div>
 </body>        

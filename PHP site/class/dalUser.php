@@ -18,9 +18,9 @@ class dalUser {
         return $db->selectQeury($query);
     }
 
-    /*public static function getUsers(db $db) {
-        $query = "SELECT UserName  FROM `users` LIMIT 0,3";
+    public static function getActiveDelivery(db $db) {
+        $query = "SELECT PickupAddress FROM `delivery` WHERE delivery.IsActive=1";
         return $db->selectQeury($query);
-    }*/
+    }
 
 }

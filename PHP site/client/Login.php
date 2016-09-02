@@ -17,12 +17,14 @@
         border-style: solid;
         border-color:  none;
         border-width: 1px;
+        position: relative; 
         }
         #title{
             color:gray;
             font-weight:bold;
             font-size: 30px;
             text-align: center;
+            position: relative; 
         }
 
 .colorgraph {
@@ -34,6 +36,7 @@
   background: #5cb85c;
   border-radius: 5px;
   text-align: center;
+  position: relative; 
   
 }
 input[type=text] {
@@ -44,6 +47,7 @@ input[type=text] {
     -webkit-border-radius: 3px;
 -moz-border-radius: 3px;
 border-radius: 3px;
+position: relative; 
 }
 input[type=password] {
     color: gray;
@@ -53,6 +57,7 @@ input[type=password] {
      -webkit-border-radius: 3px;
 -moz-border-radius: 3px;
 border-radius: 3px;
+position: relative; 
 }
 input[type=submit] {
     background-color: #5cb85c;
@@ -61,19 +66,21 @@ input[type=submit] {
     height: 40px;
     font-size: 18px;
     text-align: center;
-
+    position: relative; 
 }
 .form-group{
 text-align: center;
+position: relative; 
 }
 .btnlogin{
 text-align: center;
-
+position: relative; 
 }
 .checkbox{
   width: 150px;
    margin-right:auto;
  margin-left:auto;
+ position: relative; 
 }
 fieldset{
     border: none;
