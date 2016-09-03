@@ -12,18 +12,16 @@
 <style>
   body{
     width: 100%;
-    position: absolute;
-    border:1px solid;
   }
   .container{
-    margin-right:95px;
-    position: absolute;
-    height:650px;
+   width: 100%;
+    position:absolute;
+    height:100%;
   }
   .status{
     display: inline-block;
     float: left;
-    width:13%;
+    width:11%;
     height:100%;
     border-right: 1px solid black;
     position: relative;
@@ -31,7 +29,7 @@
   .DisplayDelivery{
     display: inline-block;
     float: left;
-    width:67%;
+    width:69%;
     height:100%; 
      position: relative; 
   }
@@ -130,6 +128,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="HomeManager.php">Home</a></li>
           <li><a href="Reports.php">Reports</a></li>
+          <li><a href="History.php">History</a></li>
           <li><a href="AddUser.php">Add User</a></li>
           <li><a href="UserManagement.php">User Managment</a></li>
           <li><a href="DeliverManagment.php">DeliverManagment</a></li>

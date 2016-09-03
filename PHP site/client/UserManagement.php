@@ -8,23 +8,24 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <style>
   body{
-    margin-right: 95px;
+    height:100%; 
+    width: 100%;
   }
     form { 
-      margin: 50px 50px; 
       width:350px;
       position: relative;
+       height:550px; 
     }
-    .container{ 
+    .container{
+    width: 100%;
+   
       position: absolute;
-      height:550px;
+      
     }
     .UserManagement{
       background-image: url(../img/background.jpg);
       position: relative;
       width:100%;
-      height:550px;
-
     }
     .form-group{
       width: 250px;
@@ -32,7 +33,7 @@
     }
     .AddUserManagement{
       position: relative;
-      height: 100%;
+      
       border: 1px solid #000;
     }
     #title{
@@ -71,6 +72,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="HomeManager.php">Home</a></li>
           <li><a href="Reports.php">Reports</a></li>
+          <li><a href="History.php">History</a></li>
           <li><a href="AddUser.php">Add User</a></li>
           <li><a href="UserManagement.php">User Managment</a></li>
           <li><a href="DeliverManagment.php">DeliverManagment</a></li>

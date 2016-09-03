@@ -15,11 +15,9 @@
 
 </head>
 <style>
-body{
-  margin-left: 95px;
-}
  .container{ 
   height:550px;
+  width: 100%;
   position: absolute;
 }
 .Map{
@@ -56,6 +54,7 @@ body{
   border: 1px solid #000;
   height: 420px;
   position: relative;
+  border-bottom: none;
 }
 .Bottom{
   border: 1px solid #000;
@@ -111,6 +110,7 @@ body{
         <ul class="nav navbar-nav">
           <li class="active"><a href="HomeManager.php">Home</a></li>
           <li><a href="Reports.php">Reports</a></li>
+          <li><a href="History.php">History</a></li>
           <li><a href="AddUser.php">Add User</a></li>
           <li><a href="UserManagement.php">User Managment</a></li>
           <li><a href="DeliverManagment.php">DeliverManagment</a></li>

@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <style>
-
+body{
+  width: 100%;
+}
   .container{ 
+    width: 100%;
     height:550px;
     position: absolute;
-    margin-left: 95px;
   }
   .History{
     background-image: url(../img/background.jpg);
@@ -76,6 +78,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="HomeManager.php">Home</a></li>
           <li><a href="Reports.php">Reports</a></li>
+          <li><a href="History.php">History</a></li>
           <li><a href="AddUser.php">Add User</a></li>
           <li><a href="UserManagement.php">User Managment</a></li>
           <li><a href="DeliverManagment.php">DeliverManagment</a></li>

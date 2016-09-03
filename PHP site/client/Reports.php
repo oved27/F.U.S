@@ -10,8 +10,8 @@
 
   .container{
     height:85%;
+    width: 100%;
     position: absolute;
-    margin-left: 95px;
   }
   .report{
     background-image: url(../img/background.jpg);
@@ -69,6 +69,7 @@
          <ul class="nav navbar-nav">
           <li class="active"><a href="HomeManager.php">Home</a></li>
           <li><a href="Reports.php">Reports</a></li>
+          <li><a href="History.php">History</a></li>
           <li><a href="AddUser.php">Add User</a></li>
           <li><a href="UserManagement.php">User Managment</a></li>
           <li><a href="DeliverManagment.php">DeliverManagment</a></li>
