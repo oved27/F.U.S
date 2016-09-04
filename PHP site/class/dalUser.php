@@ -19,7 +19,11 @@ class dalUser {
     }
 
     public static function getActiveDelivery(db $db) {
-        $query = "SELECT PickupAddress FROM `delivery` WHERE delivery.IsActive=1";
+        $query = "call Display_Delivery_Status(1)";
+        return $db->selectQeury($query);
+    }
+	    public static function getStandByDelivery(db $db) {
+        $query = "call Display_Delivery_Status(0)";
         return $db->selectQeury($query);
     }
 
