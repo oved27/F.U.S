@@ -38,28 +38,21 @@
 	  height: 40%;
 	  position: relative;  
 	}
-	.AdeliversBox{
-		position: relative;
-		height: 100%;
-		overflow:scroll;
-	}
+
 	.Adelivery{
 	  position: relative;
 	  height: 20%;
 	}
-	.AdeliveryBox{
-		position: relative;
-		height: 100%;
-		overflow:scroll;
-	}
+
 	.Wdelivery{
 	  position: relative;
 	  height: 20%;
 	}
-	.StandByDeliveryBox{
+	.inputBox{
 		position: relative;
-		height: 100%;
-		overflow:scroll;
+		height: 90%;
+		overflow-y:scroll;
+		overflow-x:hidden;
 	}
 	.NewUpdate{
 	  position: relative;
@@ -150,7 +143,7 @@
 
 	 <div class="delivers">
 	  <div class="titleHeader">שליחים במשמרת</div>
-	 <div class="AdeliversBox">
+	 <div class="inputBox">
 	 <?php
 	  echo blUser::getHtmlUser($db); 
 					//$db->printf($res);
@@ -159,7 +152,7 @@
 	</div>
 	<div class="Adelivery">
 	  <div class="titleHeader">משלוחים פעילים</div>
-	  <div class="AdeliveryBox">
+	  <div class="inputBox">
 			 <?php
 					echo blUser::getHtmlActiveDelivery($db); 
 					//$db->printf($res);
@@ -168,7 +161,7 @@
 				  </div>
 				  <div class="Wdelivery">
 				   <div class="titleHeader">משלוחים בהמתנה</div>
-				   <div class="StandByDeliveryBox">
+				   <div class="inputBox">
 					<?php
 					echo blUser::getHtmlStandByDelivery($db); 
 					
@@ -177,6 +170,12 @@
 				 </div>
 				 <div class="NewUpdate">
 				   <div class="redTitle">עדכונים חיים</div>
+				    <div class="inputBox">
+					<?php
+					echo blUser::getHtmlNewsUpdate($db); 
+					
+					?>
+					</div>
 				 </div>
 
 			   </div>

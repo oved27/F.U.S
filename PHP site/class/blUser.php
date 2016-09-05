@@ -48,7 +48,7 @@ class blUser {
         try {
             $array = dalUser::getStandByDelivery($db);
             foreach ($array as $value) {
-                $html .= "<span>" .  $value->FName." " ."</span><br/>";
+                $html .= "<span>" .  $value->FName."</span><br/>";
             }
         } catch (Exception $e) {
             return $e->getMessage();
@@ -56,4 +56,17 @@ class blUser {
         return $html;
     }
 
+	      public static function getHtmlNewsUpdate(db $db) {
+        $array = array();
+        $html = "";
+        try {
+            $array = dalUser::getNewsUpdate($db);
+            foreach ($array as $value) {
+                $html .= "<span>" .  $value->FName." " ."</span><br/>";
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return $html;
+    }
 }

@@ -26,5 +26,8 @@ class dalUser {
         $query = "call Display_Delivery_Status(0)";
         return $db->selectQeury($query);
     }
-
+	    public static function getNewsUpdate(db $db) {
+        $query = "call Display_Delivery_Status(0)";
+        return $db->selectQeury($query);
+    }
 }
