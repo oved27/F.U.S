@@ -35,28 +35,28 @@
 	  position: relative;
 	}
 	.delivers{  
-	  height: 40%;
+	  height: 25%;
 	  position: relative;  
 	}
 
 	.Adelivery{
 	  position: relative;
-	  height: 20%;
+	  height: 25%;
 	}
 
 	.Wdelivery{
 	  position: relative;
-	  height: 20%;
+	  height: 25%;
 	}
 	.inputBox{
 		position: relative;
-		height: 90%;
+		height: 79%;
 		overflow-y:scroll;
 		overflow-x:hidden;
 	}
 	.NewUpdate{
 	  position: relative;
-	  height: 20%;
+	  height: 25%;
 	}
 	.Top{
 	  border: 1px solid #000;
@@ -103,6 +103,13 @@
 	  background-color: #D9534F;
 	  position: relative;
 	}
+	.searchBox{
+		height: 70px;
+	}
+	.inputspan{
+		margin-left: 172px;
+		text-align: center;
+	}
 	</style>
 
 
@@ -126,16 +133,18 @@
 			</ul>
 		  </div>
 		</nav>
-	  </div>
+	 
 	  <div class="Map">
 	   <div class="Top" id="googleMap"> 
 	   </div>
 	   <div class="Bottom">
 		 <div class="searchByCostumer">
-		  <div class="titleHeader">איתור משלוח על פי לקוח</div>
+		  <div class="titleHeader">איתור משלוח על פי לקוח</div><span class="inputspan">הזן לקוח<span>
+		  <div class=searchBox><input type="text" id=""></div>
 		</div>
 		<div class="searchByDeliver">
-		  <div class="titleHeader">איתור משלוח על פי שליח</div>
+		  <div class="titleHeader">איתור משלוח על פי שליח</div><span class="inputspan">הזן שליח<span>
+		  <div class=searchBox><input type="text" id=""></div>
 		</div>
 	  </div>
 	</div>
@@ -179,7 +188,8 @@
 				 </div>
 
 			   </div>
-			 </div>  
+			 </div> 
+			  </div> 
 		   </body>  
 
 		   <?php
