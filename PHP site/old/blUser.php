@@ -34,7 +34,7 @@ class blUser {
         try {
             $array = dalUser::getActiveDelivery($db);
             foreach ($array as $value) {
-                $html .= "<span>" .  $value->FName." " ."</span><br/>";
+                $html .= "<span>" .  $value->FName." ".$value->Lname."</span><br/>";
 				 
             }
         } catch (Exception $e) {
@@ -48,25 +48,60 @@ class blUser {
         try {
             $array = dalUser::getStandByDelivery($db);
             foreach ($array as $value) {
-                $html .= "<span>" .  $value->FName."</span><br/>";
+                $html .= "<span>" .  $value->FName." ".$value->Lname."</span><br/>";
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
         return $html;
     }
-
-	      public static function getHtmlNewsUpdate(db $db) {
+	  public static function getHtmlNewsAssign(db $db) {
         $array = array();
         $html = "";
         try {
-            $array = dalUser::getNewsUpdate($db);
+            $array = dalUser::getNewsUpdateAssign($db);
             foreach ($array as $value) {
-                $html .= "<span>" .  $value->FName." " ."</span><br/>";
+                $html .= "<span>" .  $value->DeliveryID." was assign" ."</span><br/>";
+				 
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        return $html;
-    }
+		return $html;
+		
+	  }
+	  
+	    public static function getHtmlNewsDrop(db $db) {
+        $array = array();
+        $html = "";
+        try {
+            $array = dalUser::getNewsUpdateDrop($db);
+            foreach ($array as $value) {
+                $html .= "<span>" .  $value->DeliveryID." was drop" ."</span><br/>";
+				 
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+		return $html;
+		
+	  }
+	
+	    public static function getHtmlNewsPickup(db $db) {
+        $array = array();
+        $html = "";
+        try {
+            $array = dalUser::getNewsUpdatePickup($db);
+            foreach ($array as $value) {
+                $html .= "<span>" .  $value->DeliveryID." was pickup" ."</span><br/>";
+				 
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+		return $html;
+		
+	  }
+	  
+	 
 }

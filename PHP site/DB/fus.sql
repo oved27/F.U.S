@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2016 at 07:21 PM
+-- Generation Time: Sep 05, 2016 at 09:24 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -420,10 +420,10 @@ INSERT INTO `delivery` (`DeliveryID`, `Date`, `PickupAddress`, `DropDownAddress`
 (1, '2016-07-12 00:00:00', 'wer', 'ss', 1, 21, 0, '2016-07-08 04:20:00', NULL, NULL, 0),
 (2, '2015-07-12 00:00:00', 'qq', 'oiu', 2, 22, 0, '2016-07-08 13:11:22', '2016-07-08 10:29:00', '2016-07-11 21:24:54', 0),
 (3, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, '2016-09-05 19:51:28', '2016-07-08 13:15:47', '2016-07-08 17:30:29', 0),
-(4, '2014-07-12 00:00:00', 'ee', 'ee', 4, 24, 1, NULL, NULL, '2016-07-08 13:17:01', 0),
-(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 23, 0, NULL, NULL, '2016-07-11 21:25:33', 1),
-(6, '2015-07-12 00:00:00', 'qq', 'qq', 2, 21, 1, NULL, NULL, NULL, 0),
-(7, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 1, NULL, NULL, NULL, 0),
+(4, '2014-07-12 00:00:00', 'ee', 'ee', 4, 24, 1, NULL, '2016-09-05 22:09:22', '2016-07-08 13:17:01', 0),
+(5, '2013-07-12 00:00:00', 'rr', 'rr', 5, 23, 0, '2016-09-05 22:09:50', NULL, '2016-09-05 22:09:38', 1),
+(6, '2015-07-12 00:00:00', 'qq', 'qq', 2, 21, 1, '2016-09-05 22:22:42', NULL, NULL, 0),
+(7, '2015-07-12 00:00:00', 'ww', 'ww', 3, 23, 0, NULL, NULL, '2016-09-05 22:23:11', 0),
 (8, '2015-08-05 00:00:00', 'ee', 'ee', 1, 22, 1, NULL, NULL, NULL, 0),
 (9, '2014-07-12 00:00:00', 'rr', 'rr', 1, 23, 1, NULL, '2016-07-11 21:26:33', NULL, 0),
 (10, '2014-06-12 00:00:00', 'yy', 'yy', 2, 25, 1, NULL, NULL, NULL, 0),
@@ -494,6 +494,33 @@ SET numberOfDelivery=c.numberOfDelivery +1
 WHERE new.CustomerID=CustomerID
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `display_assign`
+--
+CREATE TABLE `display_assign` (
+`DeliveryID` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `display_dropdown`
+--
+CREATE TABLE `display_dropdown` (
+`DeliveryID` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `display_pickup`
+--
+CREATE TABLE `display_pickup` (
+`DeliveryID` int(11)
+);
 
 -- --------------------------------------------------------
 
@@ -576,6 +603,33 @@ INSERT INTO `users` (`UserName`, `Password`, `FName`, `Lname`, `Address`, `Phone
 ('ggg', 'ggg', 'ggg', 'ggg', 'ggg', '333-3333333', 0),
 ('mmm', 'mmm', 'mmm', 'mmm', 'mmm', '222-2222222', 0),
 ('sss', 'sss', 'sss', 'sss', 'sss', '111-1111111', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `display_assign`
+--
+DROP TABLE IF EXISTS `display_assign`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `display_assign`  AS  select `d`.`DeliveryID` AS `DeliveryID` from `delivery` `d` where (`d`.`AssignTime` >= (now() - interval 1 hour)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `display_dropdown`
+--
+DROP TABLE IF EXISTS `display_dropdown`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `display_dropdown`  AS  select `d`.`DeliveryID` AS `DeliveryID` from `delivery` `d` where (`d`.`DropDownTime` >= (now() - interval 1 hour)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `display_pickup`
+--
+DROP TABLE IF EXISTS `display_pickup`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `display_pickup`  AS  select `d`.`DeliveryID` AS `DeliveryID` from `delivery` `d` where (`d`.`PickupTime` >= (now() - interval 1 hour)) ;
 
 --
 -- Indexes for dumped tables

@@ -82,7 +82,9 @@
 				   <div class="redTitle">עדכונים חיים</div>
 				    <div class="inputBox">
 					<?php
-					echo blUser::getHtmlNewsUpdate($db); 
+					echo blUser::getHtmlNewsAssign($db); 
+					echo blUser::getHtmlNewsDrop($db);
+					echo blUser::getHtmlNewsPickup($db);
 					
 					?>
 					</div>

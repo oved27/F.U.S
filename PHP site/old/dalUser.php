@@ -26,8 +26,16 @@ class dalUser {
         $query = "call Display_Delivery_Status(0)";
         return $db->selectQeury($query);
     }
-	    public static function getNewsUpdate(db $db) {
-        $query = "call Display_Delivery_Status(0)";
+	    public static function getNewsUpdateAssign(db $db) {
+        $query = "select * from display_assign";
+        return $db->selectQeury($query);
+    }
+		 public static function getNewsUpdateDrop(db $db) {
+        $query = "select * from display_Dropdown";
+        return $db->selectQeury($query);
+    }
+		    public static function getNewsUpdatePickup(db $db) {
+        $query = "select * from display_pickup";
         return $db->selectQeury($query);
     }
 }
