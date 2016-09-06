@@ -35,11 +35,11 @@
    <div class="reportstyle"><br>
     <p> <u> אנא בחר את הדוח שברצונך להציג </u></p>
     <div class="ReportsLinks">
-     <button type="button" class="ReportButton">דוח שליחים</button><br>
-     <button type="button" class="ReportButton">דוח משלוחים</button><br>
-     <button type="button" class="ReportButton">דוח שליחים</button><br>
-     <button type="button" class="ReportButton">דוח לקוח</button><br>
-     <button type="button" class="ReportButton">דוח נוכחות משמרת</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח שליחים</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח משלוחים</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח שליח</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח לקוח</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח נוכחות משמרת</button><br>
    </div>
  </div>
 
