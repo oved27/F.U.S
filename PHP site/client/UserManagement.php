@@ -6,62 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <style>
-  body{
-    height:100%; 
-    width: 100%;
-  }
-    form { 
-      width:350px;
-      position: relative;
-       height:550px; 
-    }
-    .container{
-    width: 100%;
-   
-      position: absolute;
-      
-    }
-    .UserManagement{
-      background-image: url(../img/background.jpg);
-      position: relative;
-      width:100%;
-    }
-    .form-group{
-      width: 250px;
-      position: relative;
-    }
-    .AddUserManagement{
-      position: relative;
-      
-      border: 1px solid #000;
-    }
-    #title{
-      text-align: center;
-      background-color: #F0AD4E;
-      border:1px solid black;
-      font-size:25px;
-      width: 100%;
-      position: relative;
-      border-bottom: none;
-    }
-    .btnSend{
-      height: 30px;
-      position: relative;
-    }
-    .btnSendStyle{
-      height: 30px;
-      background-color: #5CB85C;
-      width: 150px;
-      position: relative;
-      color:white;
-      border:none;
-      border-radius:5px;
-    }
-    .btnSendStyle:hover{
-      background-color: #449D44;
-    }
-  </style>
+  <LINK href="../style/UserManagment.css" rel="stylesheet" type="text/css">
 </head>
 <body>
  <div class="container">
