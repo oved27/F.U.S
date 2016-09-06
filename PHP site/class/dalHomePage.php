@@ -13,7 +13,7 @@
  */
 class dalUser {
 
-    public static function getUsers(db $db) {
+    public static function getDeliversName(db $db) {
         $query = "SELECT UserName  FROM `users`";
         return $db->selectQeury($query);
     }

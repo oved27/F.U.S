@@ -154,7 +154,7 @@
 	  <div class="titleHeader">שליחים במשמרת</div>
 	 <div class="inputBox">
 	 <?php
-	  echo blUser::getHtmlUser($db); 
+	  echo blUser::getHtmlUserDelivers($db); 
 					//$db->printf($res);
 	  ?>
 	  </div>

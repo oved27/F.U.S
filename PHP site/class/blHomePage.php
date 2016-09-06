@@ -13,11 +13,11 @@
  */
 class blUser {
 
-    public static function getHtmlUser(db $db) {
+    public static function getHtmlUserDelivers(db $db) {
         $array = array();
         $html = "";
         try {
-            $array = dalUser::getUsers($db);
+            $array = dalUser::getDeliversName($db);
             foreach ($array as $value) {
                 $html .= "<span> " . $value->UserName . "</span><br/>";
             }
