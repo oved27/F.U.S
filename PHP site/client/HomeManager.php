@@ -55,7 +55,7 @@
 	  <div class="titleHeader">שליחים במשמרת</div>
 	 <div class="inputBox">
 	 <?php
-	  echo blUser::getHtmlUserDelivers($db); 
+	  echo blHomePage::getHtmlUserDelivers($db); 
 					//$db->printf($res);
 	  ?>
 	  </div>
@@ -64,7 +64,7 @@
 	  <div class="titleHeader">משלוחים פעילים</div>
 	  <div class="inputBox">
 			 <?php
-					echo blUser::getHtmlActiveDelivery($db); 
+					echo blHomePage::getHtmlActiveDelivery($db); 
 					//$db->printf($res);
 					?>   
 					</div>
@@ -73,19 +73,20 @@
 				   <div class="titleHeader">משלוחים בהמתנה</div>
 				   <div class="inputBox">
 					<?php
-					echo blUser::getHtmlStandByDelivery($db); 
+					echo blHomePage::getHtmlStandByDelivery($db); 
 					
 					?>
 					</div>
 				 </div>
 				 <div class="NewUpdate">
 				   <div class="redTitle">עדכונים חיים</div>
-				    <div class="inputBox">
+				    <div class="inputBox"><marquee id="mrq" direction="up">
 					<?php
-					echo blUser::getHtmlNewsUpdate($db); 
-					
+					echo blHomePage::getHtmlNewsAssign($db); 
+					echo blHomePage::getHtmlNewsDrop($db);
+					echo blHomePage::getHtmlNewsPickup($db);		
 					?>
-					</div>
+					</marquee></div>
 				 </div>
 
 			   </div>

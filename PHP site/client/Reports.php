@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
    <LINK href="../style/reports.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+   <script type="text/javascript" src="../js/reportBtn.js">
+   </script>
 </head>
 <body>
  <div class="container">
@@ -35,11 +38,11 @@
    <div class="reportstyle"><br>
     <p> <u> אנא בחר את הדוח שברצונך להציג </u></p>
     <div class="ReportsLinks">
-     <button type="button" class="ReportButton" onclick="">דוח שליחים</button><br>
-     <button type="button" class="ReportButton" onclick="">דוח משלוחים</button><br>
-     <button type="button" class="ReportButton" onclick="">דוח שליח</button><br>
-     <button type="button" class="ReportButton" onclick="">דוח לקוח</button><br>
-     <button type="button" class="ReportButton" onclick="">דוח נוכחות משמרת</button><br>
+     <button type="button" class="ReportButton" onclick="reportBtn(1)">דוח שליחים</button><br>
+     <button type="button" class="ReportButton" onclick="reportBtn(2)">דוח משלוחים</button><br>
+     <button type="button" class="ReportButton" onclick="reportBtn(3)">דוח שליח</button><br>
+     <button type="button" class="ReportButton" onclick="reportBtn(4)">דוח לקוח</button><br>
+     <button type="button" class="ReportButton" onclick="reportBtn(5)">דוח נוכחות משמרת</button><br>
    </div>
  </div>
 
