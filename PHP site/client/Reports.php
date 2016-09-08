@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+<?php
+    require_once "../class/config.php";
+    $db->openConn();
+    ?>
   <meta charset="utf-8">
   <title>Reports</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    <LINK href="../style/reports.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-   <script type="text/javascript" src="../js/reportBtn.js">
-   </script>
 </head>
 <body>
  <div class="container">
@@ -30,7 +32,23 @@
   </nav>
   <div id="title">דוחות</div>
   <div class="report">
-
+  <div><table class="dataReportTitle">
+    <tr>
+        <td>Deliver id</td>
+        <td>Date</td>
+        <td>PickupAddress</td>
+        <td>DropDownAddress</td>
+        <td>PickupTime</td>
+        <td>DropDownTime</td>
+    </tr></table></div>
+  <?php
+  function reportBtn(){
+    
+    echo blReports::getHtmlDeliveryReports($db); 
+  }
+    
+          //$db->printf($res);
+    ?>
   </div>
 
   <div class="Menu" align="center">
@@ -38,15 +56,17 @@
    <div class="reportstyle"><br>
     <p> <u> אנא בחר את הדוח שברצונך להציג </u></p>
     <div class="ReportsLinks">
-     <button type="button" class="ReportButton" onclick="reportBtn(1)">דוח שליחים</button><br>
-     <button type="button" class="ReportButton" onclick="reportBtn(2)">דוח משלוחים</button><br>
-     <button type="button" class="ReportButton" onclick="reportBtn(3)">דוח שליח</button><br>
-     <button type="button" class="ReportButton" onclick="reportBtn(4)">דוח לקוח</button><br>
-     <button type="button" class="ReportButton" onclick="reportBtn(5)">דוח נוכחות משמרת</button><br>
+     <button type="button" class="ReportButton" onclick="reportBtn()">דוח שליחים</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח משלוחים</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח שליח</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח לקוח</button><br>
+     <button type="button" class="ReportButton" onclick="">דוח נוכחות משמרת</button><br>
    </div>
  </div>
 
 
 </div>
-
+ <?php
+       $db->closeConn();
+       ?>      
 </html>

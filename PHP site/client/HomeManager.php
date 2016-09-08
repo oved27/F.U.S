@@ -80,7 +80,7 @@
 				 </div>
 				 <div class="NewUpdate">
 				   <div class="redTitle">עדכונים חיים</div>
-				    <div class="inputBox"><marquee id="mrq" direction="up">
+				    <div><marquee direction="up" scrollamount="2">
 					<?php
 					echo blHomePage::getHtmlNewsAssign($db); 
 					echo blHomePage::getHtmlNewsDrop($db);

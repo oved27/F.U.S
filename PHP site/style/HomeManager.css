@@ -1,3 +1,7 @@
+marquee{
+	height: 78%;
+	text-align: center;
+}
 .container{ 
 	  height:550px;
 	  width: 100%;
@@ -93,3 +97,4 @@
 		margin-left: 172px;
 		text-align: center;
 	}
+	
